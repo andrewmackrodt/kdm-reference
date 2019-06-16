@@ -1,0 +1,19 @@
+<div :class="['component', $style.module]">
+    <ul class="list-inline card-list">
+        <li class="list-inline-item card-md injury" v-for="injury in injuries">
+            <p class="name">{{ injury.name }}</p>
+            <div class="location">
+                <img src="../../../images/injuries/head.webp" alt="Head" v-if="injury.location === 'head'"/>
+                <img src="../../../images/injuries/body.webp" alt="Body" v-if="injury.location === 'body'"/>
+                <img src="../../../images/injuries/arms.webp" alt="Arms" v-if="injury.location === 'arms'"/>
+                <img src="../../../images/injuries/waist.webp" alt="Waist" v-if="injury.location === 'waist'"/>
+                <img src="../../../images/injuries/legs.webp" alt="Legs" v-if="injury.location === 'legs'"/>
+            </div>
+            <p class="caption" v-if="injury.caption">{{ injury.caption }}</p>
+            <p class="description">{{ injury.description }}</p>
+            <div class="record-archive">
+                <p><i>📝</i> <span class="keyword">Record</span> and archive.</p>
+            </div>
+        </li>
+    </ul>
+</div>
