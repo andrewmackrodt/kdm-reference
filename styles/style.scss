@@ -101,16 +101,20 @@ body {
     border-bottom: none;
     border-top: none;
     height: 64px;
-    padding: 12px 0;
+    line-height: 40px;
+    padding: 4px;
     position: absolute;
     top: 0;
     width: 48px;
 
     img {
-      display: block;
       filter: contrast(120%);
-      height: 40px;
-      line-height: 46px;
+      left: 50%;
+      max-width: 100%;
+      max-height: 100%;
+      position: relative;
+      top: 50%;
+      transform: translate(-50%, -50%);
     }
   }
 
@@ -120,8 +124,9 @@ body {
     content: "";
     display: block;
     height: 34px;
-    margin: -5px 0 0 5.5px;
+    left: 5.5px;
     position: absolute;
+    top: 47px;
     transform: rotate(45deg);
     width: 34px;
     z-index: -1;
