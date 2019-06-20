@@ -11,9 +11,13 @@ export default class extends Vue {
             const disorder = disorders[k]
             const clone = Object.create(disorder)
             if (disorder.caption) {
-                clone.caption = disorder.caption.replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+                clone.caption = '<p>' + disorder.caption
+                    .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+                    .replace(/\n/mg, '</p><p>') + '</p>'
             }
-            clone.description = disorder.description.replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+            clone.description = '<p>' + disorder.description
+                .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+                .replace(/\n/mg, '</p><p>') + '</p>'
 
             return clone
         }))

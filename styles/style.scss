@@ -30,8 +30,9 @@ body {
   background: #040404;
   border: solid 1px rgba(192, 192, 192, 0.10);
   border-radius: $card-md-radius;
-  font-size: $font-size-base * 0.9;
+  font-size: $font-size-base * 0.95;
   height: 1.5 * $card-md-height;
+  line-height: 1.5rem;
   margin: 8px;
   overflow: hidden;
   padding: 1.5rem;
@@ -91,6 +92,33 @@ body {
     position: absolute;
     transform: rotate(180deg);
     width: 100%;
+    z-index: -1;
+  }
+
+  .expansion {
+    background: #603820;
+    border: solid 1px white;
+    border-bottom: none;
+    position: absolute;
+    top: 0;
+
+    img {
+      filter: contrast(120%);
+      height: 40px;
+      margin: 15px 0 14px;
+    }
+  }
+
+  .expansion::after {
+    background-color: #603820;
+    border: solid 1px white;
+    content: "";
+    display: block;
+    height: 33px;
+    margin: -16px 0 0 6px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 33px;
     z-index: -1;
   }
 
