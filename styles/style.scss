@@ -97,15 +97,20 @@ body {
 
   .expansion {
     background: #603820;
-    border: solid 1px white;
+    border: solid 1.5px white;
     border-bottom: none;
+    border-top: none;
+    height: 64px;
+    padding: 12px 0;
     position: absolute;
     top: 0;
+    width: 48px;
 
     img {
+      display: block;
       filter: contrast(120%);
       height: 40px;
-      margin: 15px 0 14px;
+      line-height: 46px;
     }
   }
 
@@ -114,11 +119,11 @@ body {
     border: solid 1px white;
     content: "";
     display: block;
-    height: 33px;
-    margin: -16px 0 0 6px;
+    height: 34px;
+    margin: -5px 0 0 5.5px;
     position: absolute;
     transform: rotate(45deg);
-    width: 33px;
+    width: 34px;
     z-index: -1;
   }
 
