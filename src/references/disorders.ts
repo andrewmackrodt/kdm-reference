@@ -1,4 +1,4 @@
-import { Expansions } from './expansions'
+import { Expansions, Expansion, expansions } from './expansions'
 
 export {
     Disorders,
@@ -7,7 +7,7 @@ export {
 
 interface Disorder {
     readonly name: string
-    readonly expansion?: string
+    readonly expansion?: Expansion
     readonly caption?: string
     readonly description: string
 }
@@ -60,7 +60,7 @@ const disorders: { [key: string]: Disorder } = {
     },
     [Disorders.AbsentSeizures]: {
         name: 'Absent Seizures',
-        expansion: Expansions.Gorm,
+        expansion: expansions[Expansions.Gorm],
         caption: trim(`
             No one knows where your mind goes when you're gone, not even you.
         `),
@@ -200,7 +200,7 @@ const disorders: { [key: string]: Disorder } = {
     },
     [Disorders.Megalophobia]: {
         name: 'Megalophobia',
-        expansion: Expansions.Gorm,
+        expansion: expansions[Expansions.Gorm],
         caption: trim(`
             Even large, looming shadows make you jumpy.
         `),

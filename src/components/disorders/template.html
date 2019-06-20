@@ -2,7 +2,10 @@
     <ul class="list-inline card-list">
         <li class="list-inline-item card-md disorder" v-for="disorder in disorders">
             <div class="expansion" v-if="disorder.expansion">
-                <img src="../../../images/crests/gorm.webp" alt="Gorm" title="Gorm" v-if="disorder.expansion === 'gorm'"/>
+                <img src="../../../images/crests/gorm.webp"
+                    :alt="disorder.expansion.name"
+                    :title="disorder.expansion.name"
+                    v-if="disorder.expansion.name === 'Gorm'"/>
             </div>
             <p class="name">{{ disorder.name }}</p>
             <div class="location">
