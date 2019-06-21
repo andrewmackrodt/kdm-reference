@@ -15,6 +15,14 @@ export default class VuexModel extends Vue {
         }
     }
 
+    protected getStates(props: { [key: string]: any }) {
+        for (const [k, v] of Object.entries(props)) {
+            props[k] = this.getState(k, v)
+        }
+
+        return props
+    }
+
     protected getState(property?: string, value: any = undefined): any {
         const state = this.$store.state.global[this.stateKey]
 

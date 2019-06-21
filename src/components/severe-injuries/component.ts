@@ -1,11 +1,9 @@
 import { Component, Watch } from 'vue-property-decorator'
-import VuexModel from 'vuex-model'
 
+import VuexModel from 'vuex-model'
 import { Injury, injuries } from 'references/injuries'
 
-@Component({
-    template: require('./template.html'),
-})
+@Component({template: require('./template.html')})
 export default class extends VuexModel {
     protected dice: boolean = false
     protected severity: boolean = false
@@ -13,8 +11,10 @@ export default class extends VuexModel {
     constructor() {
         super('Reference.SevereInjuries')
 
-        this.dice = this.getState('dice', this.dice)
-        this.severity = this.getState('severity', this.severity)
+        Object.assign(this, this.getStates({
+            dice: this.dice,
+            severity: this.severity,
+        }))
     }
 
     protected get injuries () {
