@@ -38,7 +38,6 @@ export default class extends Vue {
                     {name: 'Innovations', href: '/reference/innovations'},
                     {name: 'Principles', href: '/reference/principles'},
                     {name: 'Severe Injuries', href: '/reference/severe-injuries'},
-                    {name: 'Severe Injuries Table', href: '/reference/severe-injuries-table'},
                 ],
             },
             {name: 'Settings', href: '/settings'},

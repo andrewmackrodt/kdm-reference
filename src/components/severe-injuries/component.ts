@@ -7,7 +7,20 @@ import { injuries } from 'references/injuries'
 })
 export default class extends Vue {
     protected get injuries () {
-        return injuries
+        return Object.assign({}, Object.keys(injuries).map(k => {
+            const injury = injuries[k]
+            const clone = Object.create(injury)
+            if (injury.caption) {
+                clone.caption = '<p>' + injury.caption
+                    .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+                    .replace(/\n/mg, '</p><p>') + '</p>'
+            }
+            clone.description = '<p>' + injury.description
+                .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+                .replace(/\n/mg, '</p><p>') + '</p>'
+
+            return clone
+        }))
     }
 
     protected get $style () {

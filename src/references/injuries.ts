@@ -6,103 +6,185 @@ export {
 }
 
 interface Injury {
-    readonly location: string;
-    readonly name: string;
-    readonly caption?: string;
-    readonly description: string;
+    readonly location: string
+    readonly roll?: string
+    readonly name: string
+    readonly caption?: string
+    readonly description: string
 }
 
 enum Injuries {
-    Blind = 'blind',
-    BrokenArm = 'broken-arm',
-    BrokenHip = 'broken-hip',
-    BrokenLeg = 'broken-leg',
-    BrokenRib = 'broken-rib',
-    BruisedTailbone = 'bruised-tailbone',
-    Contracture = 'contracture',
-    Deaf = 'deaf',
-    DestroyedBack = 'destroyed-back',
-    DestroyedGenitals = 'destroyed-genitals',
-    Disemboweled = 'disemboweled',
-    DislocatedShoulder = 'dislocated-shoulder',
-    DismemberedArm = 'dismembered-arm',
-    DismemberedLeg = 'dismembered-leg',
-    GapingChestWound = 'gaping-chest-wound',
-    Hamstrung = 'hamstrung',
+    // head
+    HeadExplosion = 'head-explosion',
+    Decapitation = 'decapitation',
     IntracranialHemorrhage = 'intracranial-hemorrhage',
-    IntestinalProlapse = 'intestinal-prolapse',
-    RupturedMuscle = 'ruptured-muscle',
-    RupturedSpleen = 'ruptured-spleen',
+    Deaf = 'deaf',
+    Blind = 'blind',
+    Concussion = 'concussion',
     ShatteredJaw = 'shattered-jaw',
-    SlashedBack = 'slashed-back',
+    DestroyedTooth = 'destroyed-tooth',
+
+    // arms
+    DieOfShock = 'die-of-shock',
+    BleedingArms = 'bleeding-arms',
+    DismemberedArm = 'dismembered-arm',
+    RupturedMuscle = 'ruptured-muscle',
+    Contracture = 'contracture',
+    BrokenArm = 'broken-arm',
     SpiralFracture = 'spiral-fracture',
+    DislocatedShoulder = 'dislocated-shoulder',
+    HitTheDirt = 'hit-the-dirt',
+
+    // body
+    InstantDeath = 'instant-death',
+    BleedingBody = 'bleeding-body',
+    GapingChestWound = 'gaping-chest-wound',
+    DestroyedBack = 'destroyed-back',
+    Disemboweled = 'disemboweled',
+    RupturedSpleen = 'ruptured-spleen',
+    BrokenRib = 'broken-rib',
+    CollapsedLung = 'collapsed-lung',
+    BowledOver = 'bowled-over',
+
+    // waist
+    FinalBreath = 'final-breath',
+    BleedingKidneys = 'bleeding-kidneys',
+    IntestinalProlapse = 'intestinal-prolapse',
+    WarpedPelvis = 'warped-pelvis',
+    DestroyedGenitals = 'destroyed-genitals',
+    BrokenHip = 'broken-hip',
+    SlashedBack = 'slashed-back',
+    BruisedTailbone = 'bruised-tailbone',
+    BellyUp = 'belly-up',
+
+    // legs
+    BloodGeyser = 'blood-geyser',
+    BleedingLegs = 'bleeding-legs',
+    DismemberedLeg = 'dismembered-leg',
+    Hamstrung = 'hamstrung',
     TornAchillesTendon = 'torn-achilles-tendon',
     TornMuscle = 'torn-muscle',
-    WarpedPelvis = 'warped-pelvis',
+    BrokenLeg = 'broken-leg',
+    BloodyThighs = 'bloody-thighs',
+    LostBalance = 'lost-balance',
 }
 
-function trim (string: string) {
+function trim(string: string) {
     return string.replace(/^ +/mg, '')
         .replace(/\n/mg, ' ')
         .trim()
 }
 
 const injuries: { [key: string]: Injury } = {
+    /***************************************************************************
+     * Head
+     **************************************************************************/
+    [Injuries.HeadExplosion]: {
+        location: HitLocations.Head,
+        roll: '1-2',
+        name: 'Head Explosion!',
+        description: trim(`
+            Your head erupts in a shower of gore, killing you instantly. All
+            other survivors are so disturbed that they lose 1 survival.
+        `),
+    },
+    [Injuries.Decapitation]: {
+        location: HitLocations.Head,
+        roll: '3-4',
+        name: 'Decapitation',
+        description: trim(`
+            You are dead.
+        `),
+    },
+    [Injuries.IntracranialHemorrhage]: {
+        location: HitLocations.Head,
+        roll: '5',
+        name: 'Intracranial Hemorrhage',
+        description: trim(`
+            You can no longer use or gain any survival. This injury is
+            permanent, and can be recorded once. Gain 1 bleeding token.`,
+        ),
+    },
+    [Injuries.Deaf]: {
+        location: HitLocations.Head,
+        roll: '6',
+        name: 'Deaf',
+        caption: "You won't hear it coming.",
+        description: trim(`
+            Suffer -1 permanent evasion. This injury is permanent, and can be
+            recorded once. Gain 1 bleeding token.`,
+        ),
+    },
     [Injuries.Blind]: {
         location: HitLocations.Head,
+        roll: '7',
         name: 'Blind',
         caption: 'Lose an eye.',
         description: trim(`
             Suffer -1 permanent accuracy. This injury is permanent and can be
-            recorded twice. A survivor with two blind severe head injuries
-            suffers -4 permanent accuracy and retires at the end of the next
-            showdown or settlement phase, having lost all sight.`,
+            recorded twice. A survivor with two [blind] severe injuries suffers
+            -4 permanent accuracy and retires at the end of the next showdown or
+            settlement phase, having lost all sight. Gain 1 bleeding token.`,
         ),
     },
-    [Injuries.BrokenArm]: {
+    [Injuries.Concussion]: {
+        location: HitLocations.Head,
+        roll: '8',
+        name: 'Concussion',
+        caption: 'Your brain is scrambled like an egg.',
+        description: trim(`
+            Gain a random disorder. Gain 1 bleeding token.
+        `),
+    },
+    [Injuries.ShatteredJaw]: {
+        location: HitLocations.Head,
+        roll: '9',
+        name: 'Shattered Jaw',
+        caption: 'You drink your meat through a straw.',
+        description: trim(`
+            You can no longer [consume] or be affected by events requiring you
+            to [consume]. You can no longer [encourage]. This injury is
+            permanent, and can be recorded once. Gain 1 bleeding token.`,
+        ),
+    },
+    [Injuries.DestroyedTooth]: {
+        location: HitLocations.Head,
+        roll: '10+',
+        name: 'Destroyed Tooth',
+        description: trim(`
+            If you have 3+ courage, you boldly spit the tooth out and gain +2
+            insanity! Otherwise, the blow sends you sprawling and you are
+            knocked down.
+        `),
+    },
+
+    /***************************************************************************
+     * Arms
+     **************************************************************************/
+    [Injuries.DismemberedArm]: {
         location: HitLocations.Arms,
-        name: 'Broken Arm',
-        caption: 'An ear-shattering crunch.',
+        roll: '4',
+        name: 'Dismembered Arm',
+        caption: 'Lose an arm.',
         description: trim(`
-            Suffer -1 permanent accuracy and -1 permanent strength. This injury
-            is permanent, and can be recorded twice.`,
-        ),
+            You can no longer activate two-handed weapons. This injury is
+            permanent, and can be recorded twice. A survivor with two
+            [dismembered arm] severe injuries cannot activate any weapons.
+        `),
     },
-    [Injuries.BrokenHip]: {
-        location: HitLocations.Waist,
-        name: 'Broken Hip',
-        caption: 'Your hip is dislocated.',
+    [Injuries.RupturedMuscle]: {
+        location: HitLocations.Arms,
+        roll: '5',
+        name: 'Ruptured Muscle',
+        caption: 'A painful rip. The arm hangs limp.',
         description: trim(`
-            You can no longer dodge. Suffer -1 permanent movement. This injury
-            is permanent, and can be recorded once.`,
+            You can no longer activate fighting arts. This injury is permanent,
+            and can be recorded once.`,
         ),
-    },
-    [Injuries.BrokenLeg]: {
-        location: HitLocations.Legs,
-        name: 'Broken Leg',
-        caption: 'An ear-shattering crunch.',
-        description: trim(`
-            Suffer -1 permanent movement. This injury is permanent and can be
-            recorded twice.`,
-        ),
-    },
-    [Injuries.BrokenRib]: {
-        location: HitLocations.Body,
-        name: 'Broken Rib',
-        caption: 'It even hurts to breath.',
-        description: trim(`
-            Suffer -1 permanent speed. This injury is permanent, and can be
-            recorded multiple times.`,
-        ),
-    },
-    [Injuries.BruisedTailbone]: {
-        location: HitLocations.Waist,
-        name: 'Bruised Tailbone',
-        caption: 'The base of your spine is in agony.',
-        description: `You cannot dash until the showdown ends.`,
     },
     [Injuries.Contracture]: {
         location: HitLocations.Arms,
+        roll: '6',
         name: 'Contracture',
         caption: 'The arm will never be the same.',
         description: trim(`
@@ -110,17 +192,49 @@ const injuries: { [key: string]: Injury } = {
             recorded multiple times.`,
         ),
     },
-    [Injuries.Deaf]: {
-        location: HitLocations.Head,
-        name: 'Deaf',
-        caption: "You won't hear it coming.",
+    [Injuries.BrokenArm]: {
+        location: HitLocations.Arms,
+        roll: '7',
+        name: 'Broken Arm',
+        caption: 'An ear-shattering crunch.',
         description: trim(`
-            Suffer -1 permanent evasion. This injury is permanent, and can be
-            recorded once.`,
+            Suffer -1 permanent accuracy and -1 permanent strength. This injury
+            is permanent, and can be recorded twice.`,
+        ),
+    },
+    [Injuries.SpiralFracture]: {
+        location: HitLocations.Arms,
+        roll: '8',
+        name: 'Spiral Fracture',
+        caption: 'Your arm twists unnaturally.',
+        description: `Skip the next hunt.`,
+    },
+    [Injuries.DislocatedShoulder]: {
+        location: HitLocations.Arms,
+        roll: '9',
+        name: 'Dislocated Shoulder',
+        description: trim(`
+            You cannot activate two-handed or paired weapons or use block until
+            the showdown ends.`,
+        ),
+    },
+
+    /***************************************************************************
+     * Body
+     **************************************************************************/
+    [Injuries.GapingChestWound]: {
+        location: HitLocations.Body,
+        roll: '4',
+        name: 'Gaping Chest Wound',
+        caption: 'It hurts to move.',
+        description: trim(`
+            Suffer -1 permanent strength. This injury is permanent, and can be
+            recorded multiple times.`,
         ),
     },
     [Injuries.DestroyedBack]: {
         location: HitLocations.Body,
+        roll: '5',
         name: 'Destroyed Back',
         caption: 'A sharp cracking noise.',
         description: trim(`
@@ -129,84 +243,42 @@ const injuries: { [key: string]: Injury } = {
             once.`,
         ),
     },
-    [Injuries.DestroyedGenitals]: {
-        location: HitLocations.Waist,
-        name: 'Destroyed Genitals',
-        caption: "You'll never have intimacy again.",
-        description: trim(`
-            You cannot be nominated for the Intimacy story event. This injury is
-            permanent and can be recorded once.`,
-        ),
-    },
     [Injuries.Disemboweled]: {
         location: HitLocations.Body,
+        roll: '6',
         name: 'Disemboweled',
         description: trim(`
             Your movement is reduced to 1 until the showdown ends. Skip the next
-            hunt. If you suffer disemboweled during a showdown, at least one
+            hunt. If you suffer [disemboweled] during a showdown, at least one
             other survivor must live to the end of that showdown to carry you
             back to the settlement. Otherwise, at the end of the showdown, you
             are lost. Dead.`,
         ),
     },
-    [Injuries.DislocatedShoulder]: {
-        location: HitLocations.Arms,
-        name: 'Dislocated Shoulder',
-        description: trim(`
-            You cannot activate two-handed or paired weapons or use block until
-            the showdown ends.`,
-        ),
-    },
-    [Injuries.DismemberedArm]: {
-        location: HitLocations.Arms,
-        name: 'Dismembered Arm',
-        caption: 'Lose an arm.',
-        description: trim(`
-            You can no longer activate two-handed weapons. This injury is
-            permanent, and can be recorded twice. A survivor with two
-            dismembered arm severe injuries cannot activate any weapons.`,
-        ),
-    },
-    [Injuries.DismemberedLeg]: {
-        location: HitLocations.Legs,
-        name: 'Dismembered Leg',
-        caption: 'Lose a leg.',
-        description: trim(`
-            You suffer -2 permanent movement, and can no longer dash. This
-            injury is permanent, and can be recorded twice. A survivor with two
-            dismembered leg severe injuries has lost both of their legs and must
-            retire at the end of the next showdown or settlement phase.`,
-        ),
-    },
-    [Injuries.GapingChestWound]: {
+    [Injuries.RupturedSpleen]: {
         location: HitLocations.Body,
-        name: 'Gaping Chest Wound',
-        caption: 'It hurts to move.',
+        roll: '7',
+        name: 'Ruptured Spleen',
+        caption: 'A vicious body blow.',
+        description: `Skip the next hunt.`,
+    },
+    [Injuries.BrokenRib]: {
+        location: HitLocations.Body,
+        roll: '8',
+        name: 'Broken Rib',
+        caption: 'It even hurts to breath.',
         description: trim(`
-            Suffer -1 permanent strength. This injury is permanent, and can be
+            Suffer -1 permanent speed. This injury is permanent, and can be
             recorded multiple times.`,
         ),
     },
-    [Injuries.Hamstrung]: {
-        location: HitLocations.Legs,
-        name: 'Hamstrung',
-        caption: 'A painful rip. The leg is unusable.',
-        description: trim(`
-            You can no longer use any fighting arts or abilities. This injury is
-            permanent, and can be recorded once.`,
-        ),
-    },
-    [Injuries.IntracranialHemorrhage]: {
-        location: HitLocations.Head,
-        name: 'Intracranial Hemorrhage',
-        caption: "Severe brain trauma.",
-        description: trim(`
-            You can no longer use or gain any survival. This injury is
-            permanent, and can be recorded once.`,
-        ),
-    },
+
+    /***************************************************************************
+     * Waist
+     **************************************************************************/
     [Injuries.IntestinalProlapse]: {
         location: HitLocations.Waist,
+        roll: '4',
         name: 'Intestinal Prolapse',
         caption: 'Your gut is gravely injured.',
         description: trim(`
@@ -214,45 +286,82 @@ const injuries: { [key: string]: Injury } = {
             to wear. This injury is permanent, and can be recorded once.`,
         ),
     },
-    [Injuries.RupturedMuscle]: {
-        location: HitLocations.Arms,
-        name: 'Ruptured Muscle',
-        caption: 'A painful rip. The arm hangs limp.',
+    [Injuries.WarpedPelvis]: {
+        location: HitLocations.Waist,
+        roll: '5',
+        name: 'Warped Pelvis',
+        caption: 'Your pelvis is disfigured.',
         description: trim(`
-            You can no longer activate fighting arts. This injury is permanent,
-            and can be recorded once.`,
+            Suffer -1 permanent luck. This injury is permanent, and can be
+            recorded multiple times.`,
         ),
     },
-    [Injuries.RupturedSpleen]: {
-        location: HitLocations.Body,
-        name: 'Ruptured Spleen',
-        caption: 'A vicious body blow.',
-        description: `Skip the next hunt.`,
-    },
-    [Injuries.ShatteredJaw]: {
-        location: HitLocations.Head,
-        name: 'Shattered Jaw',
-        caption: 'You drink your meat through a straw.',
+    [Injuries.DestroyedGenitals]: {
+        location: HitLocations.Waist,
+        roll: '6',
+        name: 'Destroyed Genitals',
+        caption: "You'll never have intimacy again.",
         description: trim(`
-            You can no longer consume or be affected by events requiring you to
-            consume. You can no longer encourage. This injury is permanent, and
-            can be recorded once.`,
+            You cannot be nominated for the Intimacy story event. This injury is
+            permanent and can be recorded once.`,
+        ),
+    },
+    [Injuries.BrokenHip]: {
+        location: HitLocations.Waist,
+        roll: '7',
+        name: 'Broken Hip',
+        caption: 'Your hip is dislocated.',
+        description: trim(`
+            You can no longer dodge. Suffer -1 permanent movement. This injury
+            is permanent, and can be recorded once.`,
         ),
     },
     [Injuries.SlashedBack]: {
         location: HitLocations.Waist,
+        roll: '8',
         name: 'Slashed Back',
-        caption: 'Movement is excruciatingly painful.',
-        description: `You cannot surge until the showdown ends.`,
+        caption: trim(`
+            Making sudden movement is excruciatingly painful.
+        `),
+        description: `You cannot [surge] until the showdown ends.`,
     },
-    [Injuries.SpiralFracture]: {
-        location: HitLocations.Arms,
-        name: 'Spiral Fracture',
-        caption: 'Your arm twists unnaturally.',
-        description: `Skip the next hunt.`,
+    [Injuries.BruisedTailbone]: {
+        location: HitLocations.Waist,
+        roll: '9',
+        name: 'Bruised Tailbone',
+        caption: 'The base of your spine is in agony.',
+        description: `You cannot dash until the showdown ends.`,
+    },
+
+    /***************************************************************************
+     * Legs
+     **************************************************************************/
+
+    [Injuries.DismemberedLeg]: {
+        location: HitLocations.Legs,
+        roll: '4',
+        name: 'Dismembered Leg',
+        caption: 'Lose a leg.',
+        description: trim(`
+            You suffer -2 permanent movement, and can no longer dash. This
+            injury is permanent, and can be recorded twice. A survivor with two
+            [dismembered leg] severe injuries has lost both of their legs and
+            must retire at the end of the next showdown or settlement phase.
+        `),
+    },
+    [Injuries.Hamstrung]: {
+        location: HitLocations.Legs,
+        roll: '5',
+        name: 'Hamstrung',
+        caption: 'A painful rip. The leg is unusable.',
+        description: trim(`
+            You can no longer use any fighting arts or abilities. This injury is
+            permanent, and can be recorded once.`,
+        ),
     },
     [Injuries.TornAchillesTendon]: {
         location: HitLocations.Legs,
+        roll: '6',
         name: 'Torn Achilles Tendon',
         caption: 'Your leg cannot bear your weight.',
         description: trim(`
@@ -262,19 +371,21 @@ const injuries: { [key: string]: Injury } = {
     },
     [Injuries.TornMuscle]: {
         location: HitLocations.Legs,
+        roll: '7',
         name: 'Torn Muscle',
         caption: 'Your quadriceps is ripped to shreds.',
         description: trim(`
-            You cannot dash until the showdown ends. Skip the next hunt.`,
+            You cannot [dash] until the showdown ends. Skip the next hunt.`,
         ),
     },
-    [Injuries.WarpedPelvis]: {
-        location: HitLocations.Waist,
-        name: 'Warped Pelvis',
-        caption: 'Your pelvis is disfigured.',
+    [Injuries.BrokenLeg]: {
+        location: HitLocations.Legs,
+        roll: '8',
+        name: 'Broken Leg',
+        caption: 'An ear-shattering crunch.',
         description: trim(`
-            Suffer -1 permanent luck. This injury is permanent, and can be
-            recorded multiple times.`,
+            Suffer -1 permanent movement. This injury is permanent and can be
+            recorded twice.`,
         ),
     },
 }

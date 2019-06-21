@@ -66,6 +66,7 @@ body {
     font-family: adonis-web, sans-serif;
     font-size: $font-size-base * 1.25;
     text-align: center;
+    text-shadow: -2px -2px rgba(0, 0, 0, 0.2);
   }
 
   &::before {
@@ -153,6 +154,37 @@ body {
 
   .description {
     text-align: center;
+  }
+
+  .roll {
+    height: 64px;
+    position: absolute;
+    left: 150px;
+    text-align: center;
+    top: -4px;
+    width: 100%;
+  }
+
+  .roll::before {
+    background: #a01818;
+    border: 1px solid whitesmoke;
+    border-radius: 4px;
+    content: "";
+    display: block;
+    height: 40px;
+    left: 137px;
+    position: absolute;
+    transform: rotate(45deg);
+    width: 40px;
+  }
+
+  .roll > span {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: bold;
+    line-height: 40px;
+    margin-left: -8px;
+    position: relative;
   }
 }
 

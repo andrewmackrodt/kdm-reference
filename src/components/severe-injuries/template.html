@@ -1,7 +1,8 @@
 <div :class="['component', $style.module]">
     <ul class="list-inline card-list">
         <li class="list-inline-item card-md injury" v-for="injury in injuries">
-            <p class="name">{{ injury.name }}</p>
+            <p class="roll" v-if="injury.roll"><span v-html="injury.roll"></span></p>
+            <p class="name" v-html="injury.name"></p>
             <div class="location">
                 <img src="../../../images/injuries/head.webp" alt="Head" title="Head" v-if="injury.location === 'head'"/>
                 <img src="../../../images/injuries/body.webp" alt="Body" title="Body" v-if="injury.location === 'body'"/>
@@ -9,8 +10,8 @@
                 <img src="../../../images/injuries/waist.webp" alt="Waist" title="Waist" v-if="injury.location === 'waist'"/>
                 <img src="../../../images/injuries/legs.webp" alt="Legs" title="Legs" v-if="injury.location === 'legs'"/>
             </div>
-            <p class="caption" v-if="injury.caption">{{ injury.caption }}</p>
-            <p class="description">{{ injury.description }}</p>
+            <p class="caption" v-html="injury.caption" v-if="injury.caption"></p>
+            <p class="description" v-html="injury.description"></p>
             <div class="record-archive">
                 <p><i>📝</i> <span class="keyword">Record</span> and archive.</p>
             </div>
