@@ -1,11 +1,22 @@
-import { Vue, Component } from 'vue-property-decorator'
+import { Component, Watch } from 'vue-property-decorator'
+import VuexModel from 'vuex-model'
 
-import { injuries } from 'references/injuries'
+import { Injury, injuries } from 'references/injuries'
 
 @Component({
     template: require('./template.html'),
 })
-export default class extends Vue {
+export default class extends VuexModel {
+    protected dice: boolean = false
+    protected severity: boolean = false
+
+    constructor() {
+        super('Reference.SevereInjuries')
+
+        this.dice = this.getState('dice', this.dice)
+        this.severity = this.getState('severity', this.severity)
+    }
+
     protected get injuries () {
         return Object.assign({}, Object.keys(injuries).map(k => {
             const injury = injuries[k]
@@ -20,10 +31,26 @@ export default class extends Vue {
                 .replace(/\n/mg, '</p><p>') + '</p>'
 
             return clone
+        }).sort((a: Injury, b: Injury): number => {
+            if (this.severity) {
+                return 0
+            }
+
+            return a.name.localeCompare(b.name)
         }))
     }
 
     protected get $style () {
         return require('./style.scss')
+    }
+
+    @Watch('dice')
+    protected onDiceChanged(value: any) {
+        this.setState('dice', value)
+    }
+
+    @Watch('severity')
+    protected onSeverityChanged(value: any) {
+        this.setState('severity', value)
     }
 }

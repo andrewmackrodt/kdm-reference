@@ -1,7 +1,21 @@
 <div :class="['component', $style.module]">
+    <div class="container-fluid">
+        <div class="custom-switch">
+            <label>
+                <input class="custom-control-input" type="checkbox" v-model="dice" />
+                <span class="custom-control-label">Toggle Roll Indicators</span>
+            </label>
+        </div>
+        <div class="custom-switch">
+            <label>
+                <input class="custom-control-input" type="checkbox" v-model="severity"/>
+                <span class="custom-control-label">Sort by Severity</span>
+            </label>
+        </div>
+    </div>
     <ul class="list-inline card-list">
         <li class="list-inline-item card-md injury" v-for="injury in injuries">
-            <p class="roll" v-if="injury.roll"><span v-html="injury.roll"></span></p>
+            <p class="roll" v-if="dice && injury.roll"><span v-html="injury.roll"></span></p>
             <p class="name" v-html="injury.name"></p>
             <div class="location">
                 <img src="../../../images/injuries/head.webp" alt="Head" title="Head" v-if="injury.location === 'head'"/>

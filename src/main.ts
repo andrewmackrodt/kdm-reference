@@ -1,5 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
+import store from './store'
 
 Vue.use(VueRouter)
 
@@ -14,11 +15,10 @@ import 'styles/style.scss'
 import 'jquery'
 import 'bootstrap'
 
-const router = new VueRouter({routes})
-
 new Vue({
     components: { App },
     el: '#app',
-    router,
+    router: new VueRouter({routes}),
+    store: store,
     template: `<App />`,
 })

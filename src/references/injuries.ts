@@ -2,6 +2,7 @@ import HitLocations from 'enums/hit-locations'
 
 export {
     Injuries,
+    Injury,
     injuries,
 }
 
