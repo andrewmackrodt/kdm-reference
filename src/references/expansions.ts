@@ -6,6 +6,8 @@ export {
 
 interface Expansion {
     readonly name: string
+    readonly crest?: string
+    readonly color?: string
     readonly expansions: Expansion[]
 }
 
@@ -31,14 +33,20 @@ const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.DungBeetleKnight]: {
         name: 'The Dung Beetle Knight',
+        crest: require('../../images/crests/dbk.webp'),
+        color: '#8c9664',
         expansions: [],
     },
     [Expansions.FlowerKnight]: {
         name: 'The Flower Knight',
+        crest: require('../../images/crests/flower-knight.webp'),
+        color: '#405830',
         expansions: [],
     },
     [Expansions.Gorm]: {
         name: 'Gorm',
+        crest: require('../../images/crests/gorm.webp'),
+        color: '#603820',
         expansions: [],
     },
 

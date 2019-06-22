@@ -20,6 +20,8 @@ enum Disorders {
     BingeEating = 'binge-eating',
     Coprolalia = 'coprolalia',
     FearOfTheDark = 'fear-of-the-dark',
+    FlowerAddiction = 'flower-addiction',
+    GhostlyBeauty = 'ghostly-beauty',
     Hemophobia = 'hemophobia',
     Hoarder = 'hoarder',
     Honorable = 'honorable',
@@ -28,6 +30,8 @@ enum Disorders {
     Indecision = 'indecision',
     Megalophobia = 'megalophobia',
     MonsterPanic = 'monster-panic',
+    MotionSickness = 'motion-sickness',
+    Narcissistic = 'narcissistic',
     PostTraumaticStress = 'post-traumatic-stress',
     Prey = 'prey',
     Quixotic = 'quixotic',
@@ -36,6 +40,7 @@ enum Disorders {
     Seizures = 'seizures',
     Squeamish = 'squeamish',
     Traumatized = 'traumatized',
+    VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
     WeakSpot = 'weak-spot',
 }
@@ -129,6 +134,31 @@ const disorders: { [key: string]: Disorder } = {
             the Lantern Hoard again.
         `),
     },
+    [Disorders.FlowerAddiction]: {
+        name: 'Flower Addiction',
+        expansion: expansions[Expansions.FlowerKnight],
+        caption: trim(`
+            An insatiable hunger has bloomed in you, delicate and sickeningly
+            sweet.
+        `),
+        description: trim(`
+            You may only [depart] to hunt the Flower Knight.
+            
+            After you [depart], cure this disorder.
+        `),
+    },
+    [Disorders.GhostlyBeauty]: {
+        name: 'Ghostly Beauty',
+        expansion: expansions[Expansions.FlowerKnight],
+        caption: trim(`
+            You cannot experience fear if you do not exist.
+        `),
+        description: trim(`
+            Double all insanity you gain.
+            
+            Double all survival you spend.
+        `),
+    },
     [Disorders.Hemophobia]: {
         name: 'Hemophobia',
         description: trim(`
@@ -219,6 +249,27 @@ const disorders: { [key: string]: Disorder } = {
             1 additional brain damage.        
         `),
     },
+    [Disorders.MotionSickness]: {
+        name: 'Motion Sickness',
+        expansion: expansions[Expansions.DungBeetleKnight],
+        caption: trim(`
+            Moving quickly makes you vomit.
+        `),
+        description: trim(`
+            Whenever you suffer [knockback], gain 1 bleeding token.
+        `),
+    },
+    [Disorders.Narcissistic]: {
+        name: 'Narcissistic',
+        expansion: expansions[Expansions.FlowerKnight],
+        caption: trim(`
+            There is nothing in the world more beautiful than yourself.
+        `),
+        description: trim(`
+            You may not wear armor at the head location. If you are wearing
+            armor at the head location when you gain this disorder, archive it.
+        `),
+    },
     [Disorders.PostTraumaticStress]: {
         name: 'Post-Traumatic Stress',
         caption: trim(`
@@ -305,6 +356,17 @@ const disorders: { [key: string]: Disorder } = {
         description: trim(`
             Whenever you end your act adjacent to a monster, you are knocked
             down.
+        `),
+    },
+    [Disorders.VerminObsession]: {
+        name: 'Vermin Obsession',
+        expansion: expansions[Expansions.DungBeetleKnight],
+        caption: trim(`
+            You love insects.
+        `),
+        description: trim(`
+            While there is a [Bug Spot] terrain tile on the showdown board, you
+            are so overwhelmed that you are [doomed].
         `),
     },
     [Disorders.Vestiphobia]: {

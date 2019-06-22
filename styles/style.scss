@@ -97,11 +97,11 @@ body {
   }
 
   .expansion {
-    background: #603820;
     border: solid 1.5px white;
     border-bottom: none;
     border-top: none;
     height: 64px;
+    left: 16px;
     line-height: 40px;
     padding: 4px;
     position: absolute;
@@ -120,7 +120,7 @@ body {
   }
 
   .expansion::after {
-    background-color: #603820;
+    background-color: inherit;
     border: solid 1px white;
     content: "";
     display: block;
