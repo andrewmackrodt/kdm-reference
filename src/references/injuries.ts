@@ -8,7 +8,7 @@ export {
 
 interface Injury {
     readonly location: string
-    readonly roll?: string
+    readonly roll: string
     readonly name: string
     readonly caption?: string
     readonly description: string

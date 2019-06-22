@@ -1,0 +1,30 @@
+<div :class="['component', $style.module]">
+    <div class="container-fluid">
+        <div class="custom-switch">
+            <label>
+                <input class="custom-control-input" type="checkbox" v-model="dice" />
+                <span class="custom-control-label">Toggle Roll Indicators</span>
+            </label>
+        </div>
+        <div class="custom-switch">
+            <label>
+                <input class="custom-control-input" type="checkbox" v-model="severity"/>
+                <span class="custom-control-label">Sort by Severity</span>
+            </label>
+        </div>
+    </div>
+    <ul class="list-inline card-list">
+        <li class="list-inline-item card-md trauma" v-for="trauma in traumas">
+            <p class="roll" v-if="dice && trauma.roll"><span v-html="trauma.roll"></span></p>
+            <p class="name" v-html="trauma.name"></p>
+            <div class="location">
+                <img src="../../../images/disorder.png" alt="Brain" title="Brain" />
+            </div>
+            <p class="caption" v-html="trauma.caption" v-if="trauma.caption"></p>
+            <p class="description" v-html="trauma.description"></p>
+            <div class="record-archive">
+                <p><i>📝</i> <span class="keyword">Record</span> and archive.</p>
+            </div>
+        </li>
+    </ul>
+</div>

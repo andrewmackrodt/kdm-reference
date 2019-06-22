@@ -33,6 +33,7 @@ export default class extends Vue {
                 href: '#!/reference',
                 items: [
                     {name: 'Abilities', href: '/reference/abilities'},
+                    {name: 'Brain Trauma', href: '/reference/brain-trauma'},
                     {name: 'Disorders', href: '/reference/disorders'},
                     {name: 'Fighting Arts', href: '/reference/fighting-arts'},
                     {name: 'Innovations', href: '/reference/innovations'},
