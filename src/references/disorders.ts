@@ -4,6 +4,7 @@ import { trim } from 'utils/strings'
 export interface Disorder {
     readonly name: string
     readonly expansion?: Expansion
+    readonly crest?: { name: string; image: string }
     readonly caption?: string
     readonly description: string
 }
@@ -13,8 +14,10 @@ export enum Disorders {
     Aichophobia = 'aichophobia',
     Anxiety = 'anxiety',
     Apathetic = 'apathetic',
+    Arithmophobia = 'arithmophobia',
     BingeEating = 'binge-eating',
     Coprolalia = 'coprolalia',
+    Destined = 'destined',
     FearOfTheDark = 'fear-of-the-dark',
     FlowerAddiction = 'flower-addiction',
     GhostlyBeauty = 'ghostly-beauty',
@@ -28,6 +31,7 @@ export enum Disorders {
     MonsterPanic = 'monster-panic',
     MotionSickness = 'motion-sickness',
     Narcissistic = 'narcissistic',
+    PerformanceAnxiety = 'performance-anxiety',
     PostTraumaticStress = 'post-traumatic-stress',
     Prey = 'prey',
     Quixotic = 'quixotic',
@@ -35,6 +39,7 @@ export enum Disorders {
     Secretive = 'secretive',
     Seizures = 'seizures',
     Squeamish = 'squeamish',
+    Superstitious = 'superstitious',
     Traumatized = 'traumatized',
     VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
@@ -62,6 +67,20 @@ export const disorders: { [key: string]: Disorder } = {
         description: trim(`
             You cannot activate or [depart] with axes, swords, spears, daggers,
             scythes, or katars in your gear grid.
+        `),
+    },
+    [Disorders.Arithmophobia]: {
+        name: 'Arithmophobia',
+        expansion: expansions[Expansions.DragonKing],
+        crest: { name: 'Tyrant', image: require('images/crests/tyrant.webp') },
+        caption: trim(`
+            You love numbers. Your life must exist in perfect arithmetical
+            harmony.
+        `),
+        description: trim(`
+            When you gain this disorder, roll 1d5. Your movement is that number.
+
+            Ignore all other movement modifiers.
         `),
     },
     [Disorders.Anxiety]: {
@@ -110,6 +129,17 @@ export const disorders: { [key: string]: Disorder } = {
 
         You are always a threat unless you are knocked down, even if an effect
         says otherwise.
+        `),
+    },
+    [Disorders.Destined]: {
+        name: '[Destined]',
+        expansion: expansions[Expansions.DragonKing],
+        crest: { name: 'Tyrant', image: require('images/crests/tyrant.webp') },
+        caption: trim(`
+            You have a grand destiny that you must fulfill.
+        `),
+        description: trim(`
+            If you do not [depart], lose all survival and insanity.
         `),
     },
     [Disorders.FearOfTheDark]: {
@@ -260,6 +290,19 @@ export const disorders: { [key: string]: Disorder } = {
             armor at the head location when you gain this disorder, archive it.
         `),
     },
+    [Disorders.PerformanceAnxiety]: {
+        name: 'Performance Anxiety',
+        expansion: expansions[Expansions.DragonKing],
+        crest: { name: 'Tyrant', image: require('images/crests/tyrant.webp') },
+        caption: trim(`
+            You're not ready to love.
+        `),
+        description: trim(`
+            You cannot be nominated for [Intimacy].
+
+            Cure this disorder if you have 8+ courage.
+        `),
+    },
     [Disorders.PostTraumaticStress]: {
         name: 'Post-Traumatic Stress',
         caption: trim(`
@@ -335,6 +378,18 @@ export const disorders: { [key: string]: Disorder } = {
             You cannot [depart] with any [stinky] gear in your gear grid. If a
             status or effect would cause you to become [stinky], lose all your
             survival.        
+        `),
+    },
+    [Disorders.Superstitious]: {
+        name: 'Superstitious',
+        expansion: expansions[Expansions.DragonKing],
+        crest: { name: 'Tyrant', image: require('images/crests/tyrant.webp') },
+        caption: trim(`
+            Evil magic will be your undoing. You do not believe in abusing the
+            other.
+        `),
+        description: trim(`
+            You cannot activate or [depart] with other gear in your gear grid.
         `),
     },
     [Disorders.Traumatized]: {

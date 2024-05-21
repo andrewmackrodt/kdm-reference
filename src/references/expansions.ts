@@ -23,7 +23,7 @@ export enum Expansions {
 export const expansions: { [key: string]: Expansion } = {
     [Expansions.DragonKing]: {
         name: 'Dragon King',
-        crest: require('images/crests/tyrant.webp'),
+        crest: require('images/crests/dragon-king.webp'),
         color: '#aa572b',
         expansions: [],
     },

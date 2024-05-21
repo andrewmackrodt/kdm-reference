@@ -1,5 +1,5 @@
 export interface CardItem {
-    crest?: { name: string; image: string; color: string }
+    crest?: { image: string; name?: string; color?: string }
     location: string
     name: string
     image: string

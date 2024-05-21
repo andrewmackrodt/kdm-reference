@@ -17,11 +17,25 @@ const disordersCardList: CardItem[] = Object.values(disorders).map(disorder => {
     caption: disorder.caption,
     description: disorder.description,
   }
-  if (disorder.expansion?.crest) {
-    res.crest = {
-      name: disorder.expansion.name,
-      image: disorder.expansion.crest!,
-      color: disorder.expansion.color!,
+  if (disorder.crest || disorder.expansion?.crest) {
+    let image: string | undefined
+    let color: string | undefined
+    const names: string[] = []
+    if (disorder.expansion) {
+      names.push(disorder.expansion.name)
+      image = disorder.expansion.crest
+      color = disorder.expansion.color
+    }
+    if (typeof disorder.crest === 'object') {
+      names.unshift(disorder.crest.name)
+      image = disorder.crest.image
+    }
+    if (image) {
+      let name: string | undefined = names.filter(Boolean).join(' - ')
+      if (name.length === 0) {
+        name = undefined
+      }
+      res.crest = { image, name, color }
     }
   }
   return res
@@ -39,7 +53,7 @@ export default class extends Vue {
 </script>
 
 <style lang="scss" scoped>
-:deep(img) {
+:deep(.location img) {
   filter: brightness(67%);
 }
 </style>

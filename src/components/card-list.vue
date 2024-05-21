@@ -16,8 +16,12 @@
     </div>
     <ul class="list-inline card-list">
       <li v-for="card in cards" class="list-inline-item card-md" :class="[listItemClass]">
-        <div v-if="card.crest" class="expansion" :style="{ 'background-color': card.crest.color }">
-          <img :src="card.crest.image" :alt="card.crest.name" :title="card.crest.name">
+        <div
+          v-if="card.crest?.image" class="expansion"
+          :class="card.crest.color ? [] : ['nobg']"
+          :style="{ 'background-color': card.crest.color }"
+        >
+          <img :src="card.crest.image" :alt="card.crestText" :title="card.crestText">
         </div>
         <p v-if="dice && card.roll" class="roll">
           <span v-html="card.roll" />
@@ -43,6 +47,7 @@ import { CardItem } from 'components/card-list'
 import VuexComponent from 'components/vuex-component'
 
 interface TemplateCardItem extends CardItem {
+  crestText?: string
   nameStyle?: Record<string, string>
 }
 
@@ -79,6 +84,7 @@ export default class extends VuexComponent {
         nameStyle.color = item.crest.color
       }
       return {
+        crestText: item.crest?.name ? `${item.crest.name} Expansion` : undefined,
         crest: item.crest,
         location: item.location[0].toUpperCase() + item.location.slice(1),
         nameStyle,
