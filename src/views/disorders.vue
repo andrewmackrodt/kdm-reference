@@ -1,10 +1,12 @@
 <template>
-  <card-list :items="items" list-item-class="disorder" />
+  <card-list state-key="CardList.Generic.Options" :items="items" list-item-class="disorder" />
 </template>
 
 <script lang="ts">
-import { Component, Vue } from 'vue-facing-decorator'
-import CardList, { type CardItem } from 'components/card-list'
+import { Component } from 'vue-facing-decorator'
+import type { CardItem } from 'components/card-list'
+import CardList from 'components/card-list.vue'
+import VuexComponent from 'components/vuex-component'
 import HitLocations from 'enums/hit-locations'
 import disorderImage from 'images/disorder.png'
 import { disorders } from 'references/disorders'
@@ -46,7 +48,7 @@ const disordersCardList: CardItem[] = Object.values(disorders).map(disorder => {
 @Component({
   components: { CardList },
 })
-export default class extends Vue {
+export default class extends VuexComponent {
   get items(): CardItem[] {
     return disordersCardList
   }

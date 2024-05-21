@@ -3,19 +3,25 @@
     <div v-if="stateKey" class="container-fluid">
       <div class="custom-switch">
         <label>
-          <input v-model="dice" class="custom-control-input" type="checkbox">
-          <span class="custom-control-label">Toggle Roll Indicators</span>
+          <input v-model="small" class="custom-control-input" type="checkbox">
+          <span class="custom-control-label">Show Small Cards</span>
         </label>
       </div>
-      <div class="custom-switch">
+      <div v-if="hasRollResult" class="custom-switch">
         <label>
-          <input v-model="severity" class="custom-control-input" type="checkbox">
-          <span class="custom-control-label">Sort by Severity</span>
+          <input v-model="showRoll" class="custom-control-input" type="checkbox">
+          <span class="custom-control-label">Show Roll Result</span>
+        </label>
+      </div>
+      <div v-if="hasRollResult" class="custom-switch">
+        <label>
+          <input v-model="sortRoll" class="custom-control-input" type="checkbox">
+          <span class="custom-control-label">Sort by Roll Result</span>
         </label>
       </div>
     </div>
     <ul class="list-inline card-list">
-      <li v-for="card in cards" class="list-inline-item card-md" :class="[listItemClass]">
+      <li v-for="card in cards" class="list-inline-item" :class="[listItemClass, cardClass]">
         <div
           v-if="card.crest?.image" class="expansion"
           :class="([
@@ -26,7 +32,7 @@
         >
           <img :src="card.crest.image" :alt="card.crestText" :title="card.crestText">
         </div>
-        <p v-if="dice && card.roll" class="roll">
+        <p v-if="showRoll && card.roll" class="roll">
           <span v-html="card.roll" />
         </p>
         <p class="name" :style="card.nameStyle" v-html="card.name" />
@@ -49,6 +55,8 @@ import { Component, Prop, Watch } from 'vue-facing-decorator'
 import { CardItem } from 'components/card-list'
 import VuexComponent from 'components/vuex-component'
 
+import 'styles/cards.scss'
+
 interface TemplateCardItem extends CardItem {
   crestText?: string
   nameStyle?: Record<string, string>
@@ -57,22 +65,30 @@ interface TemplateCardItem extends CardItem {
 // @vue/component
 @Component
 export default class extends VuexComponent {
-  @Prop() readonly stateKey?: string
+  @Prop({ type: String }) readonly stateKey?: string
   @Prop({ type: Array as PropType<CardItem[]>, required: true }) readonly items!: CardItem[]
-  @Prop() readonly listItemClass?: string
-  dice = false
-  severity = false
+  @Prop({ type: String }) readonly listItemClass?: string
+  @Prop({ type: Boolean, default: false }) hasRollResult!: boolean
+  showRoll = false
+  sortRoll = false
+  small = false
 
   created() {
     if ( ! this.stateKey) {
       return
     }
     this._stateKey = this.stateKey
-    super.created()
     Object.assign(this, this.getComponentGlobalStateMany({
-      dice: this.dice,
-      severity: this.severity,
+      ...(this.hasRollResult ? {
+          showRoll: this.showRoll,
+          sortRoll: this.sortRoll,
+        } : undefined),
+      small: this.small,
     }))
+  }
+
+  get cardClass(): string {
+    return this.small ? 'card-sm' : 'card-md'
   }
 
   get cards(): TemplateCardItem[] {
@@ -107,7 +123,7 @@ export default class extends VuexComponent {
         roll: item.roll,
       }
     }).sort((a: CardItem, b: CardItem): number => {
-      if (this.severity) {
+      if (this.sortRoll) {
         // todo sort by roll
         return 0
       }
@@ -115,14 +131,19 @@ export default class extends VuexComponent {
     })
   }
 
-  @Watch('dice')
-  onDiceChanged(value: boolean) {
-    this.setComponentGlobalState('dice', value)
+  @Watch('small')
+  onSmallChanged(value: boolean) {
+    this.setComponentGlobalState('small', value)
   }
 
-  @Watch('severity')
-  onSeverityChanged(value: boolean) {
-    this.setComponentGlobalState('severity', value)
+  @Watch('showRoll')
+  onShowRollChanged(value: boolean) {
+    this.setComponentGlobalState('showRoll', value)
+  }
+
+  @Watch('sortRoll')
+  onSortRollChanged(value: boolean) {
+    this.setComponentGlobalState('sortRoll', value)
   }
 }
 </script>

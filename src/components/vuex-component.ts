@@ -4,14 +4,6 @@ import type { RecordValueState } from 'store'
 export default class VuexComponent extends Vue {
     protected _stateKey = this.constructor.name
 
-    created(): void {
-        if ( ! (this._stateKey in this.$store.state)) {
-            this.$store.commit('update', {
-                [this._stateKey]: {},
-            })
-        }
-    }
-
     protected getComponentGlobalStateMany(props: { [key: string]: unknown }) {
         for (const [k, v] of Object.entries(props)) {
             props[k] = this.getComponentGlobalState(k, v)

@@ -1,10 +1,11 @@
 <template>
-  <card-list state-key="Reference.SevereInjuries" :items="items" list-item-class="injury" />
+  <card-list state-key="CardList.Generic.Options" :items="items" list-item-class="injury" :has-roll-result="true" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-facing-decorator'
-import CardList, { type CardItem } from 'components/card-list'
+import type { CardItem } from 'components/card-list'
+import CardList from 'components/card-list.vue'
 import { injuries } from 'references/injuries'
 
 const images: Record<string, string> = {

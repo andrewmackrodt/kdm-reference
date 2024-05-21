@@ -1,0 +1,269 @@
+@import "env";
+
+$card-margin: 8px;
+
+.card-list {
+  list-style: none;
+  padding: 0;
+}
+
+.card-sm {
+  $card-sm-padding: 1rem;
+  $card-sm-roll-wh: 32px;
+
+  border-radius: $card-sm-radius;
+  font-size: $card-sm-font-size;
+  height: 1.5 * $card-sm-height;
+  line-height: 1.1rem;
+  padding: $card-sm-padding;
+  width: 1.5 * $card-sm-width;
+
+  b, strong {
+    font-size: $card-sm-font-size-bold;
+  }
+
+  .expansion {
+    background-color: transparent !important;
+    border-color: transparent !important;
+  }
+
+  .expansion::after {
+    display: none !important;
+  }
+
+  .expansion img {
+    margin-top: 0;
+  }
+
+  .roll {
+    height: $card-sm-roll-wh;
+    width: $card-sm-roll-wh;
+  }
+
+  .roll::before {
+    height: $card-sm-roll-wh;
+    width: $card-sm-roll-wh;
+  }
+
+  .roll > span {
+    line-height: $card-sm-roll-wh;
+  }
+
+  .name {
+    margin-bottom: 1.2rem;
+  }
+
+  .caption {
+    display: none;
+  }
+
+  .location {
+    opacity: 0.2;
+    position: absolute;
+    width: calc(100% - $card-sm-padding - $card-margin);
+  }
+}
+
+.card-md {
+  $card-md-padding: 1.5rem;
+  $card-md-roll-wh: 40px;
+
+  border-radius: $card-md-radius;
+  font-size: $card-md-font-size;
+  height: 1.5 * $card-md-height;
+  line-height: 1.5rem;
+  padding: $card-md-padding;
+  width: 1.5 * $card-md-width;
+
+  b, strong {
+    font-size: $card-md-font-size-bold;
+  }
+
+  .expansion img {
+      margin-top: 42%;
+  }
+
+  .roll {
+    height: $card-md-roll-wh;
+    width: $card-md-roll-wh;
+  }
+
+  .roll::before {
+    height: $card-md-roll-wh;
+    width: $card-md-roll-wh;
+  }
+
+  .roll > span {
+    line-height: $card-md-roll-wh;
+  }
+}
+
+.card-sm, .card-md {
+  background: #040404;
+  border: solid 1px rgba(192, 192, 192, 0.10);
+  margin: $card-margin;
+  overflow: hidden;
+  position: relative;
+  z-index: 1;
+
+  b, strong {
+    font-family: sans-serif;
+  }
+
+  i {
+    font-family: "EmojiSymbols";
+    font-style: normal;
+  }
+
+  .record-archive {
+    i {
+      font-size: $font-size-base * 0.75;
+      padding-right: 2px;
+    }
+
+    background: #202020;
+    bottom: 0;
+    display: inline-block;
+    font-family: Verdana, Geneva, sans-serif;
+    font-size: $font-size-base * 0.75;
+    font-style: normal;
+    height: 3rem;
+    left: 0;
+    line-height: 3rem;
+    position: absolute;
+    text-align: center;
+    width: 100%;
+  }
+
+  .name {
+    font-family: adonis-web, sans-serif;
+    font-size: $font-size-base * 1.25;
+    text-align: center;
+    text-shadow: -2px -2px rgba(0, 0, 0, 0.2);
+  }
+
+  &::before {
+    background: url("~images/border.png") 0 0 no-repeat;
+    background-size: 100%;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    top: 0;
+    width: 100%;
+    z-index: -1;
+  }
+
+  &::after {
+    background: url("~images/border.png") 0 0 no-repeat;
+    background-size: 100%;
+    bottom: 0;
+    content: "";
+    height: 100%;
+    left: 0;
+    opacity: 0.5;
+    position: absolute;
+    transform: rotate(180deg);
+    width: 100%;
+    z-index: -1;
+  }
+
+  .expansion {
+    border: solid 1.5px white;
+    border-bottom: none;
+    border-top: none;
+    height: 64px;
+    left: 16px;
+    line-height: 40px;
+    padding: 4px;
+    position: absolute;
+    top: 0;
+    width: 48px;
+
+    &:not(.nobg)::after {
+      background-color: inherit;
+      border: solid 1px white;
+      content: "";
+      display: block;
+      height: 34px;
+      left: 5.5px;
+      position: absolute;
+      top: 47px;
+      transform: rotate(45deg);
+      width: 34px;
+      z-index: -1;
+    }
+
+    &.nobg {
+      border-color: transparent;
+      &::after {
+        border-color: transparent;
+      }
+    }
+
+    &.hidden {
+      filter: brightness(0.2);
+    }
+
+    img {
+      filter: grayscale(0.25) contrast(1.25) brightness(0.9);
+      max-width: 100%;
+      max-height: 100%;
+    }
+  }
+
+  .roll {
+    position: absolute;
+    top: -0.25rem;
+    right: -0.25rem;
+  }
+
+  .roll::before {
+    background: #a01818;
+    border: 1px solid whitesmoke;
+    border-radius: 4px;
+    content: "";
+    display: block;
+    position: absolute;
+    transform: rotate(45deg);
+  }
+
+  .roll > span {
+    display: block;
+    font-size: $font-size-sm;
+    font-weight: bold;
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+
+  .location {
+    color: white;
+    height: 100px;
+    line-height: 100px;
+    margin: 1.5rem auto;
+    text-align: center;
+    text-transform: capitalize;
+
+    img {
+      height: 100%;
+    }
+  }
+
+  .caption {
+    font-style: italic;
+    text-align: center;
+  }
+
+  .description {
+    text-align: center;
+
+    .crest {
+      filter: grayscale(1);
+      height: $font-size-base;
+      padding-bottom: 2px;
+      width: $font-size-base;
+    }
+  }
+}
