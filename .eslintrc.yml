@@ -93,6 +93,8 @@ rules:
     - 2
   vue/max-attributes-per-line:
     - off
+  vue/multi-word-component-names:
+    - off
   vue/no-lone-template:
     - off
   vue/no-multiple-template-root:

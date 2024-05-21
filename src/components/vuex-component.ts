@@ -2,7 +2,7 @@ import { Vue } from 'vue-facing-decorator'
 import type { RecordValueState } from 'store'
 
 export default class VuexComponent extends Vue {
-    protected readonly _stateKey = this.constructor.name
+    protected _stateKey = this.constructor.name
 
     created(): void {
         if ( ! (this._stateKey in this.$store.state)) {

@@ -1,64 +1,45 @@
 <template>
-  <div class="component">
-    <ul class="list-inline card-list">
-      <li v-for="disorder in disorders" class="list-inline-item card-md disorder">
-        <div
-          v-if="disorder.expansion && disorder.expansion.crest"
-          class="expansion"
-          :style="{
-            'background-color': disorder.expansion.color,
-          }"
-        >
-          <img
-            :src="disorder.expansion.crest"
-            :alt="disorder.expansion.name"
-            :title="disorder.expansion.name"
-          >
-        </div>
-        <p class="name">
-          {{ disorder.name }}
-        </p>
-        <div class="location">
-          <img src="~images/disorder.png" alt="Head">
-        </div>
-        <p v-if="disorder.caption" class="caption" v-html="disorder.caption" />
-        <p class="description" v-html="disorder.description" />
-        <div class="record-archive">
-          <p><i>📝</i> <span class="keyword">Record</span> and archive.</p>
-        </div>
-      </li>
-    </ul>
-  </div>
+  <card-list :items="items" list-item-class="disorder" />
 </template>
 
 <script lang="ts">
 import { Component, Vue } from 'vue-facing-decorator'
+import CardList, { type CardItem } from 'components/card-list'
+import HitLocations from 'enums/hit-locations'
+import disorderImage from 'images/disorder.png'
 import { disorders } from 'references/disorders'
 
-// @vue/component
-@Component
-export default class extends Vue {
-  get disorders() {
-    return Object.assign({}, Object.keys(disorders).map(k => {
-      const disorder = disorders[k]
-      const clone = Object.create(disorder)
-      if (disorder.caption) {
-        clone.caption = '<p>' + disorder.caption
-            .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
-            .replace(/\n/mg, '</p><p>') + '</p>'
-      }
-      clone.description = '<p>' + disorder.description
-          .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
-          .replace(/\n/mg, '</p><p>') + '</p>'
+const disordersCardList: CardItem[] = Object.values(disorders).map(disorder => {
+  const res: CardItem = {
+    location: HitLocations.Head,
+    name: disorder.name,
+    image: disorderImage,
+    caption: disorder.caption,
+    description: disorder.description,
+  }
+  if (disorder.expansion?.crest) {
+    res.crest = {
+      name: disorder.expansion.name,
+      image: disorder.expansion.crest!,
+      color: disorder.expansion.color!,
+    }
+  }
+  return res
+})
 
-      return clone
-    }))
+// @vue/component
+@Component({
+  components: { CardList },
+})
+export default class extends Vue {
+  get items(): CardItem[] {
+    return disordersCardList
   }
 }
 </script>
 
 <style lang="scss" scoped>
-img {
-  filter: brightness(33%);
+:deep(img) {
+  filter: brightness(67%);
 }
 </style>
