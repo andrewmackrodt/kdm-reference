@@ -169,6 +169,13 @@ body {
 
   .description {
     text-align: center;
+
+    .crest {
+      filter: grayscale(1);
+      height: $font-size-base;
+      padding-bottom: 2px;
+      width: $font-size-base;
+    }
   }
 
   .roll {

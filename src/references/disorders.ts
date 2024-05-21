@@ -31,6 +31,7 @@ export enum Disorders {
     Hoarder = 'hoarder',
     Honorable = 'honorable',
     Hyperactive = 'hyperactive',
+    HyperSensitivity = 'hyper-sensitivity',
     Immortal = 'immortal',
     Indecision = 'indecision',
     Megalophobia = 'megalophobia',
@@ -50,6 +51,7 @@ export enum Disorders {
     Secretive = 'secretive',
     Seizures = 'seizures',
     Somniphobia = 'somniphobia',
+    SpiralGanglia = 'spiral-ganglia',
     Squeamish = 'squeamish',
     Subjugated = 'subjugated',
     Superstitious = 'superstitious',
@@ -310,6 +312,19 @@ export const disorders: { [key: string]: Disorder } = {
             During the showdown, you must move at least 1 space every round.
         `),
     },
+    [Disorders.HyperSensitivity]: {
+        name: 'Hyper-Sensitivity',
+        expansion: expansions[Expansions.Slenderman],
+        caption: trim(`
+            Your will to survive has become indefatigable.
+        `),
+        description: trim(`
+            You may [dodge] one additional time per round.
+
+            Whenever you are hit by an attack, you must [dodge] at least once,
+            if possible.
+        `),
+    },
     [Disorders.Immortal]: {
         name: 'Immortal',
         caption: trim(`
@@ -512,6 +527,17 @@ export const disorders: { [key: string]: Disorder } = {
         description: trim(`
             During the showdown, whever you suffer damage to your head location,
             you are knocked down.        
+        `),
+    },
+    [Disorders.SpiralGanglia]: {
+        name: 'Spiral Ganglia',
+        expansion: expansions[Expansions.Slenderman],
+        caption: trim(`
+            The roads in your mind cross and reveal a strange new path.
+        `),
+        description: trim(`
+            At the start of the showdown, gain the [monster:Darkness Awareness]
+            survivor status card.
         `),
     },
     [Disorders.Somniphobia]: {

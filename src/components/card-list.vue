@@ -86,6 +86,8 @@ export default class extends VuexComponent {
       if (highlight && item.crest?.color) {
         nameStyle.color = item.crest.color
       }
+      // todo use story event placeholder image
+      const crestImage = item.crest?.image ?? ''
       return {
         crestText: item.crest?.name ? `${item.crest.name} Expansion` : undefined,
         crest: item.crest,
@@ -96,6 +98,7 @@ export default class extends VuexComponent {
         caption: item.caption?.replace(/\[([^\]]+)\]/g, '<b>$1</b>').replace(/\n/mg, '</p><p>'),
         description: item.description
             .replace(/\[endeavor\]/g, '<i title="endeavor">✪</i>')
+            .replace(/\[monster:([^\]]+)\]/g, `<span class="text-nowrap"><img class="crest" src="${crestImage}" alt="monster action" title="monster action" /> <b>$1</b></span>`)
             .replace(/\[movement\]/g, '<i title="movement">♘</i>')
             .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
             .replace(/\n/mg, '</p><p>'),

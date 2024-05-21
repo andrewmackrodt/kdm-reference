@@ -69,6 +69,8 @@ export const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.Slenderman]: {
         name: 'Slenderman',
+        crest: require('images/crests/slenderman.webp'),
+        color: '#706070',
         expansions: [],
     },
     [Expansions.Spidicules]: {
