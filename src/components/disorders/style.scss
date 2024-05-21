@@ -1,0 +1,7 @@
+@import "styles/env";
+
+:local(.module) {
+  img {
+    filter: brightness(33%);
+  }
+}
