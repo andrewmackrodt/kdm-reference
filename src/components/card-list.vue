@@ -71,7 +71,7 @@ export default class extends VuexComponent {
   @Prop({ type: Boolean, default: false }) hasRollResult!: boolean
   showRoll = false
   sortRoll = false
-  small = false
+  small = 'userAgentData' in navigator ? (navigator as any).userAgentData.mobile : false
 
   created() {
     if ( ! this.stateKey) {

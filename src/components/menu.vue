@@ -3,7 +3,7 @@
     <nav class="navbar navbar-expand-lg">
       <span class="navbar-brand">KDM Reference</span>
       <button
-        class="navbar-toggler"
+        class="navbar-toggler collapsed"
         type="button"
         data-toggle="collapse"
         data-target="#menu-dropdown"
@@ -53,36 +53,55 @@
 <script lang="ts">
 import { Component, Vue } from 'vue-facing-decorator'
 
+interface MenuItem {
+  name: string
+  href: string
+  items?: MenuItem[]
+}
+
 // @vue/component
 @Component
 export default class extends Vue {
+  private _documentClickListener?: EventListener
+
   mounted() {
-    const navbar = this.$el.querySelector('.navbar-collapse')
+    const navbar = this.$el.querySelector('nav.navbar')
+    const navbarToggler = navbar.querySelector('.navbar-toggler')
+    const $navbarCollapse = $(navbar.querySelector('.navbar-collapse'))
 
-    document.addEventListener('click', function () {
-      if (navbar.classList.contains('show')) {
-        $(navbar).collapse('hide')
+    navbarToggler.addEventListener('click', () => {
+      if ( ! navbarToggler.classList.contains('collapsed')) {
+        if (this._documentClickListener) {
+          document.removeEventListener('click', this._documentClickListener)
+          this._documentClickListener = undefined
+        }
+        return
       }
-    })
 
-    this.$el.querySelector('a[href$="/settings"]').addEventListener('click', function (e: MouseEvent) {
-      e.preventDefault()
-      alert('Not Implemented')
+      this._documentClickListener = e => {
+        const target = e.target as HTMLElement
+        if (navbarToggler.contains(target) || (
+            navbar.contains(target)
+              && target.classList.contains('nav-link')
+              && target.classList.contains('dropdown-toggle')
+            )
+        ) {
+          return
+        }
+        $navbarCollapse.collapse('hide')
+        document.removeEventListener('click', this._documentClickListener!)
+        this._documentClickListener = undefined
+      }
+
+      document.addEventListener('click', this._documentClickListener)
     })
   }
 
-  get menuItems() {
+  get menuItems(): MenuItem[] {
     return [
-      {
-        name: 'Reference',
-        href: '#!/reference',
-        items: [
-          { name: 'Brain Trauma', href: '/reference/brain-traumas' },
-          { name: 'Disorders', href: '/reference/disorders' },
-          { name: 'Severe Injuries', href: '/reference/severe-injuries' },
-        ],
-      },
-      { name: 'Settings', href: '/settings' },
+      { name: 'Brain Traumas', href: '/reference/brain-traumas' },
+      { name: 'Disorders', href: '/reference/disorders' },
+      { name: 'Severe Injuries', href: '/reference/severe-injuries' },
     ]
   }
 }
