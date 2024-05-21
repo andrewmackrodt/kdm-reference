@@ -34,8 +34,8 @@ module.exports = {
           test: /[\\/]node_modules[\\/](jquery|@?popper(?:\.?js)?|bootstrap)|[\\/]styles[\\/]bootstrap\.scss/,
           priority: 20,
         },
-        lib: {
-          name: 'lib',
+        vendor: {
+          name: 'vendor',
           test: /[\\/]node_modules[\\/]/,
           priority: 10,
         },
@@ -44,7 +44,7 @@ module.exports = {
   },
   output: {
     path: path.join(__dirname, 'out'),
-    publicPath: '/',
+    publicPath: './',
     filename: 'scripts/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.js',
     chunkFilename: 'scripts/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.js',
   },
