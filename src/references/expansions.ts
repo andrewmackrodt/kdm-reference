@@ -67,6 +67,8 @@ export const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.Spidicules]: {
         name: 'Spidicules',
+        crest: require('images/crests/spidicules.webp'),
+        color: '#808038',
         expansions: [],
     },
     [Expansions.Sunstalker]: {

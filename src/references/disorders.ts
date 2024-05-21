@@ -16,6 +16,7 @@ export enum Disorders {
     Apathetic = 'apathetic',
     Arithmophobia = 'arithmophobia',
     BingeEating = 'binge-eating',
+    Controlophobia = 'controlophobia',
     Coprolalia = 'coprolalia',
     Destined = 'destined',
     FearOfTheDark = 'fear-of-the-dark',
@@ -36,10 +37,12 @@ export enum Disorders {
     Prey = 'prey',
     Quixotic = 'quixotic',
     Rageholic = 'rageholic',
+    Revenge = 'revenge',
     Secretive = 'secretive',
     Seizures = 'seizures',
     Squeamish = 'squeamish',
     Superstitious = 'superstitious',
+    TinyArachnophobia = 'tiny-arachnophobia',
     Traumatized = 'traumatized',
     VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
@@ -116,6 +119,16 @@ export const disorders: { [key: string]: Disorder } = {
             grid.
 
             You must consume if a choice to consume arises.
+        `),
+    },
+    [Disorders.Controlophobia]: {
+        name: 'Controlophobia',
+        expansion: expansions[Expansions.Spidicules],
+        caption: trim(`
+            You are deeply afraid of being the monster controller.
+        `),
+        description: trim(`
+            While you are the monster controller, double any damage you suffer.
         `),
     },
     [Disorders.Coprolalia]: {
@@ -347,6 +360,17 @@ export const disorders: { [key: string]: Disorder } = {
             trauma.        
         `),
     },
+    [Disorders.Revenge]: {
+        name: 'Revenge',
+        expansion: expansions[Expansions.Spidicules],
+        caption: trim(`
+            When a fellow hunter perishes you lose control.
+        `),
+        description: trim(`
+            When a survivor dies during the showdown, suffer the [Frenzy] brain
+            trauma.
+        `),
+    },
     [Disorders.Secretive]: {
         name: 'Secretive',
         caption: trim(`
@@ -390,6 +414,18 @@ export const disorders: { [key: string]: Disorder } = {
         `),
         description: trim(`
             You cannot activate or [depart] with other gear in your gear grid.
+        `),
+    },
+    [Disorders.TinyArachnophobia]: {
+        name: 'Tiny Arachnophobia',
+        expansion: expansions[Expansions.Spidicules],
+        caption: trim(`
+            You are irrationally scared by tiny spiders and the things they
+            produce.
+        `),
+        description: trim(`
+            You cannot carry any gear with the amber keyboard. You cannot gain
+            any resources with the silk keyword.
         `),
     },
     [Disorders.Traumatized]: {
