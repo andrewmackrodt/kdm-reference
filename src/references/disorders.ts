@@ -48,15 +48,18 @@ export enum Disorders {
     Photophillia = 'photophillia',
     PostTraumaticStress = 'post-traumatic-stress',
     Prey = 'prey',
+    PrimaDonna = 'prima-donna',
     Quixotic = 'quixotic',
     Rageholic = 'rageholic',
     Revenge = 'revenge',
     Schadenfreude = 'schadenfreude',
     Secretive = 'secretive',
     Seizures = 'seizures',
+    ShallowLungs = 'shallow-lungs',
     Somniphobia = 'somniphobia',
     SpiralGanglia = 'spiral-ganglia',
     Squeamish = 'squeamish',
+    StageFright = 'stage-fright',
     StarkRaving = 'stark-raving',
     Subjugated = 'subjugated',
     SunDrunk = 'sun-drunk',
@@ -64,6 +67,7 @@ export enum Disorders {
     TinyArachnophobia = 'tiny-arachnophobia',
     Traumatized = 'traumatized',
     TunnelVision = 'tunnel-vision',
+    Unlucky = 'unlucky',
     VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
     WeakSpot = 'weak-spot',
@@ -512,6 +516,17 @@ export const disorders: { [key: string]: Disorder } = {
             You may not spend survival unless you are insane.
         `),
     },
+    [Disorders.PrimaDonna]: {
+        name: 'Prima Donna',
+        expansion: expansions[Expansions.LionKnight],
+        caption: trim(`
+            The double-edged sword of game is the only weapon you require.
+        `),
+        description: trim(`
+            Each survivor turn, you must take your act first (roll off each turn
+            if multiple survivors have this disorder).
+        `),
+    },
     [Disorders.Quixotic]: {
         name: 'Quixotic',
         caption: trim(`
@@ -579,6 +594,16 @@ export const disorders: { [key: string]: Disorder } = {
             you are knocked down.        
         `),
     },
+    [Disorders.ShallowLungs]: {
+        name: 'Shallow Lungs',
+        expansion: expansions[Expansions.LionKnight],
+        caption: trim(`
+            Yelling makes you feel light-headed.
+        `),
+        description: trim(`
+            When you [encourage], you are knocked down.
+        `),
+    },
     [Disorders.SpiralGanglia]: {
         name: 'Spiral Ganglia',
         expansion: expansions[Expansions.Slenderman],
@@ -610,6 +635,17 @@ export const disorders: { [key: string]: Disorder } = {
             You cannot [depart] with any [stinky] gear in your gear grid. If a
             status or effect would cause you to become [stinky], lose all your
             survival.        
+        `),
+    },
+    [Disorders.StageFright]: {
+        name: 'Stage Fright',
+        expansion: expansions[Expansions.LionKnight],
+        caption: trim(`
+            You hare being the center of attention.
+        `),
+        description: trim(`
+            Whenever you become [doomed] or gain the [priority target] token,
+            lose 1 survival.
         `),
     },
     [Disorders.StarkRaving]: {
@@ -689,6 +725,16 @@ export const disorders: { [key: string]: Disorder } = {
         `),
         description: trim(`
             When you spend [activation], you may only activate weapons.
+        `),
+    },
+    [Disorders.Unlucky]: {
+        name: 'Unlucky',
+        expansion: expansions[Expansions.LionKnight],
+        caption: trim(`
+            Your mother always said you were born under a bad sign.
+        `),
+        description: trim(`
+            You cannot critically wound.
         `),
     },
     [Disorders.VerminObsession]: {

@@ -59,6 +59,8 @@ export const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.LionKnight]: {
         name: 'The Lion Knight',
+        crest: require('images/crests/lion-knight.webp'),
+        color: '#c89828',
         expansions: [],
     },
     [Expansions.LonelyTree]: {
