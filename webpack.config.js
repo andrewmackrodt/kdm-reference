@@ -1,6 +1,6 @@
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ImageminPlugin = require('imagemin-webpack-plugin').default
+const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const sharpResponsiveLoader = require('responsive-loader/sharp')
 const TerserPlugin = require('terser-webpack-plugin')
@@ -20,6 +20,47 @@ module.exports = {
     minimizer: [
       new TerserPlugin({ parallel: true }),
       new CssMinimizerPlugin(),
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.sharpMinify,
+          options: {
+            encodeOptions: {
+              // https://sharp.pixelplumbing.com/api-output#avif
+              avif: { lossless: true },
+
+              // gif does not support lossless compression at all
+              // https://sharp.pixelplumbing.com/api-output#gif
+              gif: {},
+
+              // https://sharp.pixelplumbing.com/api-output#jpeg
+              jpeg: { quality: 100 },
+
+              // png by default sets the quality to 100%, which is same as lossless
+              // https://sharp.pixelplumbing.com/api-output#png
+              png: {},
+
+              // https://sharp.pixelplumbing.com/api-output#webp
+              webp: { lossless: true },
+            },
+          },
+        },
+      }),
+      new ImageMinimizerPlugin({
+        minimizer: {
+          implementation: ImageMinimizerPlugin.svgoMinify,
+          options: {
+            encodeOptions: {
+              // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
+              multipass: true,
+              plugins: [
+                // set of built-in plugins enabled by default
+                // see: https://github.com/svg/svgo#default-preset
+                'preset-default',
+              ],
+            },
+          },
+        },
+      }),
     ],
     splitChunks: {
       chunks: 'all',
@@ -275,15 +316,6 @@ module.exports = {
       chunkFilename: 'styles/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.css',
     }),
     new VueLoader.VueLoaderPlugin(),
-    ...(isDev ? [] : [
-        new ImageminPlugin({
-          test: /\.(gif|svg|png)$/i,
-          pngquant: {
-            quality: '65-90',
-            speed: 4,
-          },
-        }),
-    ]),
     ...(process.env.ANALYZE ? [
         new BundleAnalyzerPlugin({
           analyzerPort: 50000 + Math.round(Math.random() * 9999),
