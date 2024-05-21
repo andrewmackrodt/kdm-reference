@@ -100,6 +100,7 @@ export default class extends VuexComponent {
             .replace(/\[endeavor\]/g, '<i title="endeavor">✪</i>')
             .replace(/\[monster:([^\]]+)\]/g, `<span class="text-nowrap"><img class="crest" src="${crestImage}" alt="monster action" title="monster action" /> <b>$1</b></span>`)
             .replace(/\[movement\]/g, '<i title="movement">♘</i>')
+            .replace(/\[story:([^\]]+)\]/g, '<i class="text-nowrap" title="story event">📖<b> $1</b></i>')
             .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
             .replace(/\n/mg, '</p><p>'),
         roll: item.roll,

@@ -23,6 +23,7 @@ export enum Disorders {
     Coprolalia = 'coprolalia',
     Destined = 'destined',
     DirectionalDyslexia = 'directional-dyslexia',
+    Emotionless = 'emotionless',
     Ergophobia = 'ergophobia',
     FearOfTheDark = 'fear-of-the-dark',
     FlowerAddiction = 'flower-addiction',
@@ -38,6 +39,7 @@ export enum Disorders {
     MonsterPanic = 'monster-panic',
     MotionSickness = 'motion-sickness',
     Narcissistic = 'narcissistic',
+    Overprotective = 'overprotective',
     Pacifist = 'pacifist',
     PerformanceAnxiety = 'performance-anxiety',
     Phobophobia = 'phobophobia',
@@ -54,6 +56,7 @@ export enum Disorders {
     SpiralGanglia = 'spiral-ganglia',
     Squeamish = 'squeamish',
     Subjugated = 'subjugated',
+    SunDrunk = 'sun-drunk',
     Superstitious = 'superstitious',
     TinyArachnophobia = 'tiny-arachnophobia',
     Traumatized = 'traumatized',
@@ -214,6 +217,17 @@ export const disorders: { [key: string]: Disorder } = {
         `),
         description: trim(`
             Your [movement] can only be spent to move in a single straight line.
+        `),
+    },
+    [Disorders.Emotionless]: {
+        name: 'Emotionless',
+        expansion: expansions[Expansions.Sunstalker],
+        caption: trim(`
+            You don't have any emotions. You've hidden this from everyone by
+            mimicking their social interactions.
+        `),
+        description: trim(`
+            You cannot gain +1 strength tokens.
         `),
     },
     [Disorders.Ergophobia]: {
@@ -390,6 +404,17 @@ export const disorders: { [key: string]: Disorder } = {
         description: trim(`
             You may not wear armor at the head location. If you are wearing
             armor at the head location when you gain this disorder, archive it.
+        `),
+    },
+    [Disorders.Overprotective]: {
+        name: 'Overprotective',
+        expansion: expansions[Expansions.Sunstalker],
+        caption: trim(`
+            You love the feeling of being needed.
+        `),
+        description: trim(`
+            When an adjacent survivor is knocked down, you are also knocked down
+            as you rush to their aid.
         `),
     },
     [Disorders.Pacifist]: {
@@ -573,6 +598,17 @@ export const disorders: { [key: string]: Disorder } = {
             When you are knocked down, you are [dominated].
 
             When you depart to hunt the King, remove this disorder.
+        `),
+    },
+    [Disorders.SunDrunk]: {
+        name: 'Sun-Drunk',
+        expansion: expansions[Expansions.Sunstalker],
+        caption: trim(`
+            When your emotions rise, you can only think of violence.
+        `),
+        description: trim(`
+            When you have any +1 strength tokens, you cannot [dash], [dodge] or
+            [story:Run Away].
         `),
     },
     [Disorders.Superstitious]: {

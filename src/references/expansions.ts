@@ -81,6 +81,8 @@ export const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.Sunstalker]: {
         name: 'Sunstalker',
+        crest: require('images/crests/sunstalker.webp'),
+        color: '#e2dc90',
         expansions: [],
     },
 }
