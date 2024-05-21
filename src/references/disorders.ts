@@ -21,9 +21,11 @@ export enum Disorders {
     BrainSmog = 'brain-smog',
     Controlophobia = 'controlophobia',
     Coprolalia = 'coprolalia',
+    Delicious = 'delicious',
     Destined = 'destined',
     DirectionalDyslexia = 'directional-dyslexia',
     Emotionless = 'emotionless',
+    Enfeebled = 'enfeebled',
     Ergophobia = 'ergophobia',
     FearOfTheDark = 'fear-of-the-dark',
     FlowerAddiction = 'flower-addiction',
@@ -55,11 +57,13 @@ export enum Disorders {
     Somniphobia = 'somniphobia',
     SpiralGanglia = 'spiral-ganglia',
     Squeamish = 'squeamish',
+    StarkRaving = 'stark-raving',
     Subjugated = 'subjugated',
     SunDrunk = 'sun-drunk',
     Superstitious = 'superstitious',
     TinyArachnophobia = 'tiny-arachnophobia',
     Traumatized = 'traumatized',
+    TunnelVision = 'tunnel-vision',
     VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
     WeakSpot = 'weak-spot',
@@ -196,6 +200,17 @@ export const disorders: { [key: string]: Disorder } = {
         says otherwise.
         `),
     },
+    [Disorders.Delicious]: {
+        name: 'Delicious',
+        expansion: expansions[Expansions.LionGod],
+        caption: trim(`
+            Predators of all shapes and sizes find your scent irresistible.
+        `),
+        description: trim(`
+            You are still considered a threat when you are knocked down (unless
+            you use an effect that says otherwise).
+        `),
+    },
     [Disorders.Destined]: {
         name: '[Destined]',
         expansion: expansions[Expansions.DragonKing],
@@ -228,6 +243,16 @@ export const disorders: { [key: string]: Disorder } = {
         `),
         description: trim(`
             You cannot gain +1 strength tokens.
+        `),
+    },
+    [Disorders.Enfeebled]: {
+        name: 'Enfeebled',
+        expansion: expansions[Expansions.LionGod],
+        caption: trim(`
+            You are a delicate flower, wilting in the darkness.
+        `),
+        description: trim(`
+            It takes one less bleeding token to kill you.
         `),
     },
     [Disorders.Ergophobia]: {
@@ -587,6 +612,16 @@ export const disorders: { [key: string]: Disorder } = {
             survival.        
         `),
     },
+    [Disorders.StarkRaving]: {
+        name: 'Stark Raving',
+        expansion: expansions[Expansions.LionGod],
+        caption: trim(`
+            Freedom awaits those pushed this far beyond breaking point.
+        `),
+        description: trim(`
+            You are always [insane], regardless of your insanity.
+        `),
+    },
     [Disorders.Subjugated]: {
         name: 'Subjugated',
         expansion: expansions[Expansions.GamblersChest],
@@ -644,6 +679,16 @@ export const disorders: { [key: string]: Disorder } = {
         description: trim(`
             Whenever you end your act adjacent to a monster, you are knocked
             down.
+        `),
+    },
+    [Disorders.TunnelVision]: {
+        name: 'Tunnel Vision',
+        expansion: expansions[Expansions.LionGod],
+        caption: trim(`
+            If you're not killing something, you're wasting your time.
+        `),
+        description: trim(`
+            When you spend [activation], you may only activate weapons.
         `),
     },
     [Disorders.VerminObsession]: {

@@ -97,6 +97,7 @@ export default class extends VuexComponent {
         image: item.image,
         caption: item.caption?.replace(/\[([^\]]+)\]/g, '<b>$1</b>').replace(/\n/mg, '</p><p>'),
         description: item.description
+            .replace(/\[activation\]/g, '<i title="activation">⚡</i>')
             .replace(/\[endeavor\]/g, '<i title="endeavor">✪</i>')
             .replace(/\[monster:([^\]]+)\]/g, `<span class="text-nowrap"><img class="crest" src="${crestImage}" alt="monster action" title="monster action" /> <b>$1</b></span>`)
             .replace(/\[movement\]/g, '<i title="movement">♘</i>')

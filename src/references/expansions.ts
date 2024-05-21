@@ -53,6 +53,8 @@ export const expansions: { [key: string]: Expansion } = {
     },
     [Expansions.LionGod]: {
         name: 'The Lion God',
+        crest: require('images/crests/lion-god.webp'),
+        color: '#784024',
         expansions: [],
     },
     [Expansions.LionKnight]: {
