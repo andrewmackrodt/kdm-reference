@@ -132,6 +132,10 @@ body {
       }
     }
 
+    &.hidden {
+      filter: brightness(0.2);
+    }
+
     img {
       filter: grayscale(0.25) contrast(1.25) brightness(0.9);
       margin-top: 42%;

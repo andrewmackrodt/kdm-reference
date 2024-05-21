@@ -1,5 +1,5 @@
 <template>
-  <p>Reference database for <b>KDM: Monster 1.5.</b></p>
+  <p>Reference database for <b>KDM: Monster.</b></p>
 </template>
 
 <script lang="ts">

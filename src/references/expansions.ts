@@ -9,6 +9,7 @@ export enum Expansions {
     DragonKing = 'dragon-king',
     DungBeetleKnight = 'dung-beetle-knight',
     FlowerKnight = 'flower-knight',
+    GamblersChest = 'gamblers-chest',
     Gorm = 'gorm',
     GreenKnightArmor = 'green-knight-armor',
     LionGod = 'lion-god',
@@ -37,6 +38,11 @@ export const expansions: { [key: string]: Expansion } = {
         name: 'The Flower Knight',
         crest: require('images/crests/flower-knight.webp'),
         color: '#405830',
+        expansions: [],
+    },
+    [Expansions.GamblersChest]: {
+        name: "Gambler's Chest",
+        crest: require('images/crests/gamblers-chest-crest-box-sq.webp'),
         expansions: [],
     },
     [Expansions.Gorm]: {

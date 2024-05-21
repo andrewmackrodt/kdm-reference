@@ -4,7 +4,7 @@ import { trim } from 'utils/strings'
 export interface Disorder {
     readonly name: string
     readonly expansion?: Expansion
-    readonly crest?: { name: string; image: string }
+    readonly crest?: { name: string; image: string } | false
     readonly caption?: string
     readonly description: string
 }
@@ -15,10 +15,15 @@ export enum Disorders {
     Anxiety = 'anxiety',
     Apathetic = 'apathetic',
     Arithmophobia = 'arithmophobia',
+    Atelophobia = 'atelophobia',
     BingeEating = 'binge-eating',
+    Bloodlust = 'bloodlust',
+    BrainSmog = 'brain-smog',
     Controlophobia = 'controlophobia',
     Coprolalia = 'coprolalia',
     Destined = 'destined',
+    DirectionalDyslexia = 'directional-dyslexia',
+    Ergophobia = 'ergophobia',
     FearOfTheDark = 'fear-of-the-dark',
     FlowerAddiction = 'flower-addiction',
     GhostlyBeauty = 'ghostly-beauty',
@@ -32,21 +37,28 @@ export enum Disorders {
     MonsterPanic = 'monster-panic',
     MotionSickness = 'motion-sickness',
     Narcissistic = 'narcissistic',
+    Pacifist = 'pacifist',
     PerformanceAnxiety = 'performance-anxiety',
+    Phobophobia = 'phobophobia',
+    Photophillia = 'photophillia',
     PostTraumaticStress = 'post-traumatic-stress',
     Prey = 'prey',
     Quixotic = 'quixotic',
     Rageholic = 'rageholic',
     Revenge = 'revenge',
+    Schadenfreude = 'schadenfreude',
     Secretive = 'secretive',
     Seizures = 'seizures',
+    Somniphobia = 'somniphobia',
     Squeamish = 'squeamish',
+    Subjugated = 'subjugated',
     Superstitious = 'superstitious',
     TinyArachnophobia = 'tiny-arachnophobia',
     Traumatized = 'traumatized',
     VerminObsession = 'vermin-obsession',
     Vestiphobia = 'vestiphobia',
     WeakSpot = 'weak-spot',
+    Weltschmerz = 'weltschmerz',
 }
 
 export const disorders: { [key: string]: Disorder } = {
@@ -109,6 +121,18 @@ export const disorders: { [key: string]: Disorder } = {
             Cure this disorder if you have 8+ understanding.
         `),
     },
+    [Disorders.Atelophobia]: {
+        name: 'Atelophobia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: false,
+        caption: trim(`
+            You have an obsessive fear of imperfection.
+        `),
+        description: trim(`
+            When there are no [Perfect hits] in your attack, suffer 1 brain
+            damage.
+        `),
+    },
     [Disorders.BingeEating]: {
         name: 'Binge Eating',
         caption: trim(`
@@ -119,6 +143,29 @@ export const disorders: { [key: string]: Disorder } = {
             grid.
 
             You must consume if a choice to consume arises.
+        `),
+    },
+    [Disorders.Bloodlust]: {
+        name: 'Bloodlust',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Crimson Crocodile', image: require('images/crests/crimson-crocodile.webp') },
+        caption: trim(`
+            A single glimpse of red and that is all you can see.
+        `),
+        description: trim(`
+            Whenever a survivor gains a bleeding token, suffer the [frenzy]
+            brain trauma. Limit once per round.
+        `),
+    },
+    [Disorders.BrainSmog]: {
+        name: 'Brain Smog',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Smog Singers', image: require('images/crests/smog-singers.webp') },
+        caption: trim(`
+            You cannot focus.
+        `),
+        description: trim(`
+            You cannot [surge] or [concentrate].
         `),
     },
     [Disorders.Controlophobia]: {
@@ -153,6 +200,33 @@ export const disorders: { [key: string]: Disorder } = {
         `),
         description: trim(`
             If you do not [depart], lose all survival and insanity.
+        `),
+    },
+    [Disorders.DirectionalDyslexia]: {
+        name: 'Directional Dyslexia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'King', image: require('images/crests/king.webp') },
+        caption: trim(`
+            You have extreme difficulty distinguishing left from right and up
+            from down.
+        `),
+        description: trim(`
+            Your [movement] can only be spent to move in a single straight line.
+        `),
+    },
+    [Disorders.Ergophobia]: {
+        name: 'Ergophobia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: false,
+        caption: trim(`
+            You cannot bear the thought of working. You hide away whenever you
+            might be needed.
+        `),
+        description: trim(`
+            When you are a [returning survivor], you do not generate
+            [endeavor].
+
+            You cannot endeavor.
         `),
     },
     [Disorders.FearOfTheDark]: {
@@ -303,6 +377,18 @@ export const disorders: { [key: string]: Disorder } = {
             armor at the head location when you gain this disorder, archive it.
         `),
     },
+    [Disorders.Pacifist]: {
+        name: 'Pacifist',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Smog Singers', image: require('images/crests/smog-singers.webp') },
+        caption: trim(`
+            You refuse to fight.
+        `),
+        description: trim(`
+            You cannot activate a weapon to attack. Ignore this if you are
+            [frenzied].
+        `),
+    },
     [Disorders.PerformanceAnxiety]: {
         name: 'Performance Anxiety',
         expansion: expansions[Expansions.DragonKing],
@@ -314,6 +400,29 @@ export const disorders: { [key: string]: Disorder } = {
             You cannot be nominated for [Intimacy].
 
             Cure this disorder if you have 8+ courage.
+        `),
+    },
+    [Disorders.Phobophobia]: {
+        name: 'Phobophobia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Crimson Crocodile', image: require('images/crests/crimson-crocodile.webp') },
+        caption: trim(`
+            You fear fear.
+        `),
+        description: trim(`
+            At the start of your act, if you have 0 insanity, gain the
+            [Terrified] survivor status card.
+        `),
+    },
+    [Disorders.Photophillia]: {
+        name: 'Photophillia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: false,
+        caption: trim(`
+            You cling to light.
+        `),
+        description: trim(`
+            You cannot [depart] without a lantern in your gear grid.
         `),
     },
     [Disorders.PostTraumaticStress]: {
@@ -371,6 +480,18 @@ export const disorders: { [key: string]: Disorder } = {
             trauma.
         `),
     },
+    [Disorders.Schadenfreude]: {
+        name: 'Schadenfreude',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Atnas', image: require('images/crests/atnas.webp') },
+        caption: trim(`
+            You take pleasure in others' suffering.
+        `),
+        description: trim(`
+            When another survivor suffers a severe injury, you are overcome with
+            glee. You are knocked down and gain +1 insanity.
+        `),
+    },
     [Disorders.Secretive]: {
         name: 'Secretive',
         caption: trim(`
@@ -393,6 +514,17 @@ export const disorders: { [key: string]: Disorder } = {
             you are knocked down.        
         `),
     },
+    [Disorders.Somniphobia]: {
+        name: 'Somniphobia',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: false,
+        caption: trim(`
+            You fear what might happen when you fall asleep away from home.
+        `),
+        description: trim(`
+            On [Arrival], lose half your survival, rounded down.
+        `),
+    },
     [Disorders.Squeamish]: {
         name: 'Squeamish',
         caption: trim(`
@@ -402,6 +534,19 @@ export const disorders: { [key: string]: Disorder } = {
             You cannot [depart] with any [stinky] gear in your gear grid. If a
             status or effect would cause you to become [stinky], lose all your
             survival.        
+        `),
+    },
+    [Disorders.Subjugated]: {
+        name: 'Subjugated',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'King', image: require('images/crests/king.webp') },
+        caption: trim(`
+            You are in awe of the majesty of monsters.
+        `),
+        description: trim(`
+            When you are knocked down, you are [dominated].
+
+            When you depart to hunt the King, remove this disorder.
         `),
     },
     [Disorders.Superstitious]: {
@@ -470,6 +615,19 @@ export const disorders: { [key: string]: Disorder } = {
         description: trim(`
             When you gain this disorder, roll a random hit location and record
             it. You cannot [depart] unless you have armor at this hit location.        
+        `),
+    },
+    [Disorders.Weltschmerz]: {
+        name: 'Weltschmerz',
+        expansion: expansions[Expansions.GamblersChest],
+        crest: { name: 'Atnas', image: require('images/crests/atnas.webp') },
+        caption: trim(`
+            Things cannot be the way you wish them to be, and only death can
+            shake you from your wallowing.
+        `),
+        description: trim(`
+            You cannot [depart] unless you have updated the death count this
+            lantern year.
         `),
     },
 }

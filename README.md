@@ -1,6 +1,6 @@
 # kdm-reference
 
-A reference app for [Kingdom Death: Monster 1.5][kdm] to lookup game terms,
+A reference app for [Kingdom Death: Monster][kdm] to lookup game terms,
 disorders, fighting arts, severe injuries etc. 
 
 ## Quick Start

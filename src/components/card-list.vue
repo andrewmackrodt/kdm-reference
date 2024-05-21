@@ -18,7 +18,10 @@
       <li v-for="card in cards" class="list-inline-item card-md" :class="[listItemClass]">
         <div
           v-if="card.crest?.image" class="expansion"
-          :class="card.crest.color ? [] : ['nobg']"
+          :class="([
+            ...(card.crest.color ? [] : ['nobg']),
+            ...(card.crest.hidden ? ['hidden'] : []),
+          ]) as string[]"
           :style="{ 'background-color': card.crest.color }"
         >
           <img :src="card.crest.image" :alt="card.crestText" :title="card.crestText">
@@ -91,7 +94,11 @@ export default class extends VuexComponent {
         name,
         image: item.image,
         caption: item.caption?.replace(/\[([^\]]+)\]/g, '<b>$1</b>').replace(/\n/mg, '</p><p>'),
-        description: item.description.replace(/\[([^\]]+)\]/g, '<b>$1</b>').replace(/\n/mg, '</p><p>'),
+        description: item.description
+            .replace(/\[endeavor\]/g, '<i title="endeavor">✪</i>')
+            .replace(/\[movement\]/g, '<i title="movement">♘</i>')
+            .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
+            .replace(/\n/mg, '</p><p>'),
         roll: item.roll,
       }
     }).sort((a: CardItem, b: CardItem): number => {

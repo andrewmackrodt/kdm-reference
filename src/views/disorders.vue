@@ -30,12 +30,13 @@ const disordersCardList: CardItem[] = Object.values(disorders).map(disorder => {
       names.unshift(disorder.crest.name)
       image = disorder.crest.image
     }
+    const hidden = disorder.crest === false
     if (image) {
       let name: string | undefined = names.filter(Boolean).join(' - ')
       if (name.length === 0) {
         name = undefined
       }
-      res.crest = { image, name, color }
+      res.crest = { image, name, color, hidden }
     }
   }
   return res
