@@ -21,7 +21,7 @@
         </p>
         <p class="name" v-html="injury.name" />
         <div class="location">
-          <img :src="injury.src" :srcset="injury.srcset" :alt="injury.alt" :title="injury.alt">
+          <img :src="injury.src" :alt="injury.alt" :title="injury.alt">
         </div>
         <p v-if="injury.caption" class="caption" v-html="injury.caption" />
         <p class="description" v-html="injury.description" />
@@ -34,12 +34,11 @@
 </template>
 
 <script lang="ts">
-import { ResponsiveImage } from 'responsive-loader'
 import { Component, Watch } from 'vue-facing-decorator'
 import VuexComponent from 'components/vuex-component'
 import { Injury, injuries } from 'references/injuries'
 
-const images: Record<string, ResponsiveImage> = {
+const images: Record<string, string> = {
   head: require('images/injuries/head.webp'),
   body: require('images/injuries/body.webp'),
   arms: require('images/injuries/arms.webp'),
@@ -73,9 +72,7 @@ export default class extends VuexComponent {
       clone.description = '<p>' + injury.description
           .replace(/\[([^\]]+)\]/g, '<b>$1</b>')
           .replace(/\n/mg, '</p><p>') + '</p>'
-      const image = images[injury.location]
-      clone.src = image.src
-      clone.srcset = image.srcSet
+      clone.src = images[injury.location]
       clone.alt = injury.location[0].toUpperCase() + injury.location.slice(1)
       return clone
     }).sort((a: Injury, b: Injury): number => {

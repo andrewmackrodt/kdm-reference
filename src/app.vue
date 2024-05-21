@@ -22,7 +22,7 @@ export default class extends Vue {
 
 <style lang="scss" scoped>
 #background {
-  background: url('~images/crests/watcher-crest-box-sq.webp?raw') no-repeat center center;
+  background: url('~images/crests/watcher-crest-box-sq.webp') no-repeat center center;
   background-origin: content-box;
   background-size: contain;
   filter: grayscale(100%) invert(1) brightness(7%) opacity(0.85);

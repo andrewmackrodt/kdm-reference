@@ -10,8 +10,7 @@
           }"
         >
           <img
-            :src="disorder.expansion.crest.src"
-            :srcSet="disorder.expansion.crest.srcSet"
+            :src="disorder.expansion.crest"
             :alt="disorder.expansion.name"
             :title="disorder.expansion.name"
           >
@@ -20,7 +19,7 @@
           {{ disorder.name }}
         </p>
         <div class="location">
-          <img :src="src" :srcset="srcset" alt="Head">
+          <img src="~images/disorder.png" alt="Head">
         </div>
         <p v-if="disorder.caption" class="caption" v-html="disorder.caption" />
         <p class="description" v-html="disorder.description" />
@@ -34,7 +33,6 @@
 
 <script lang="ts">
 import { Component, Vue } from 'vue-facing-decorator'
-import disorderImage from 'images/disorder.png'
 import { disorders } from 'references/disorders'
 
 // @vue/component
@@ -55,14 +53,6 @@ export default class extends Vue {
 
       return clone
     }))
-  }
-
-  get src() {
-    return disorderImage.src
-  }
-
-  get srcset() {
-    return disorderImage.srcSet
   }
 }
 </script>

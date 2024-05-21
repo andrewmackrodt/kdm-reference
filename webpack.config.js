@@ -1,8 +1,6 @@
 const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const ImageMinimizerPlugin = require('image-minimizer-webpack-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const sharpResponsiveLoader = require('responsive-loader/sharp')
 const TerserPlugin = require('terser-webpack-plugin')
 const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const VueLoader = require('vue-loader')
@@ -20,47 +18,6 @@ module.exports = {
     minimizer: [
       new TerserPlugin({ parallel: true }),
       new CssMinimizerPlugin(),
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.sharpMinify,
-          options: {
-            encodeOptions: {
-              // https://sharp.pixelplumbing.com/api-output#avif
-              avif: { lossless: true },
-
-              // gif does not support lossless compression at all
-              // https://sharp.pixelplumbing.com/api-output#gif
-              gif: {},
-
-              // https://sharp.pixelplumbing.com/api-output#jpeg
-              jpeg: { quality: 100 },
-
-              // png by default sets the quality to 100%, which is same as lossless
-              // https://sharp.pixelplumbing.com/api-output#png
-              png: {},
-
-              // https://sharp.pixelplumbing.com/api-output#webp
-              webp: { lossless: true },
-            },
-          },
-        },
-      }),
-      new ImageMinimizerPlugin({
-        minimizer: {
-          implementation: ImageMinimizerPlugin.svgoMinify,
-          options: {
-            encodeOptions: {
-              // Pass over SVGs multiple times to ensure all optimizations are applied. False by default
-              multipass: true,
-              plugins: [
-                // set of built-in plugins enabled by default
-                // see: https://github.com/svg/svgo#default-preset
-                'preset-default',
-              ],
-            },
-          },
-        },
-      }),
     ],
     splitChunks: {
       chunks: 'all',
@@ -213,44 +170,7 @@ module.exports = {
         ],
       },
       {
-        test: /\.(avif|jpe?g|png|webp)(\?.*)?$/,
-        oneOf: [
-          {
-            loader: 'responsive-loader',
-            resourceQuery: { not: [/raw/] },
-            options: {
-              adapter: (imagePath) => {
-                const adapter = sharpResponsiveLoader(imagePath)
-
-                return {
-                  metadata: () => {
-                    return adapter.metadata()
-                  },
-                  resize: (_ref) => {
-                    if (_ref.width <= 320) _ref.options.quality = 85
-                    else if (_ref.width <= 640) _ref.options.quality = 80
-                    else _ref.options.quality = 75
-
-                    return adapter.resize(_ref)
-                  },
-                }
-              },
-              disable: isDev,
-              name: '[path][name]' + (isDev ? '' : '-[width]px.[hash:7]') + '.[ext]',
-              sizes: [2160, 1080, 640, 320],
-            },
-          },
-          {
-            type: 'asset/resource',
-            resourceQuery: /raw/,
-            generator: {
-              filename: '[path][name]' + (isDev ? '' : '.[hash:7]') + '[ext]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.(gif|ico|eot|ttf|woff)(\?.*)?$/,
+        test: /\.(avif|gif|jpe?g|ico|eot|png|ttf|webp|woff)(\?.*)?$/,
         type: 'asset/resource',
         generator: {
           filename: '[path][name]' + (isDev ? '' : '.[hash:7]') + '[ext]',

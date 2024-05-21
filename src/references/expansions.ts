@@ -1,8 +1,6 @@
-import type { ResponsiveImage } from 'responsive-loader'
-
 export interface Expansion {
     readonly name: string
-    readonly crest?: ResponsiveImage
+    readonly crest?: string
     readonly color?: string
     readonly expansions: Expansion[]
 }

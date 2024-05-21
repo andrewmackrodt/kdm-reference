@@ -21,7 +21,7 @@
         </p>
         <p class="name" v-html="trauma.name" />
         <div class="location">
-          <img :src="src" :srcset="srcset" alt="Brain" title="Brain">
+          <img src="~images/disorder.png" alt="Brain" title="Brain">
         </div>
         <p v-if="trauma.caption" class="caption" v-html="trauma.caption" />
         <p class="description" v-html="trauma.description" />
@@ -36,7 +36,6 @@
 <script lang="ts">
 import { Component, Watch } from 'vue-facing-decorator'
 import VuexComponent from 'components/vuex-component'
-import disorderImage from 'images/disorder.png'
 import { BrainTrauma, brainTraumas } from 'references/brain-trauma'
 
 // @vue/component
@@ -73,14 +72,6 @@ export default class extends VuexComponent {
 
       return a.name.localeCompare(b.name)
     }))
-  }
-
-  get src() {
-    return disorderImage.src
-  }
-
-  get srcset() {
-    return disorderImage.srcSet
   }
 
   @Watch('dice')
