@@ -1,17 +1,11 @@
 import { Cores, cores } from './cores'
 import { Expansions, expansions } from './expansions'
 
-export {
-    Packages,
-    Package,
-    packages,
-}
-
-interface Package {
+export interface Package {
     readonly name: string
 }
 
-enum Packages {
+export enum Packages {
     Core_1_0 = Cores.Core_1_0,
     Core_1_5 = Cores.Core_1_5,
     DragonKing = Expansions.DragonKing,
@@ -28,4 +22,4 @@ enum Packages {
     Sunstalker = Expansions.Sunstalker,
 }
 
-const packages: { [key: string]: Package } = Object.assign({}, cores, expansions)
+export const packages: { [key: string]: Package } = Object.assign({}, cores, expansions)

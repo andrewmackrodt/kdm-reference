@@ -1,17 +1,13 @@
-export {
-    Expansions,
-    Expansion,
-    expansions,
-}
+import type { ResponsiveImage } from 'responsive-loader'
 
-interface Expansion {
+export interface Expansion {
     readonly name: string
-    readonly crest?: string
+    readonly crest?: ResponsiveImage
     readonly color?: string
     readonly expansions: Expansion[]
 }
 
-enum Expansions {
+export enum Expansions {
     DragonKing = 'dragon-king',
     DungBeetleKnight = 'dung-beetle-knight',
     FlowerKnight = 'flower-knight',
@@ -26,28 +22,28 @@ enum Expansions {
     Sunstalker = 'sunstalker',
 }
 
-const expansions: { [key: string]: Expansion } = {
+export const expansions: { [key: string]: Expansion } = {
     [Expansions.DragonKing]: {
         name: 'Dragon King',
-        crest: require('../../images/crests/tyrant.webp'),
+        crest: require('images/crests/tyrant.webp'),
         color: '#aa572b',
         expansions: [],
     },
     [Expansions.DungBeetleKnight]: {
         name: 'The Dung Beetle Knight',
-        crest: require('../../images/crests/dung-beetle-knight.webp'),
+        crest: require('images/crests/dung-beetle-knight.webp'),
         color: '#8c9664',
         expansions: [],
     },
     [Expansions.FlowerKnight]: {
         name: 'The Flower Knight',
-        crest: require('../../images/crests/flower-knight.webp'),
+        crest: require('images/crests/flower-knight.webp'),
         color: '#405830',
         expansions: [],
     },
     [Expansions.Gorm]: {
         name: 'Gorm',
-        crest: require('../../images/crests/gorm.webp'),
+        crest: require('images/crests/gorm.webp'),
         color: '#603820',
         expansions: [],
     },

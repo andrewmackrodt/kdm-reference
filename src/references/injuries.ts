@@ -1,12 +1,7 @@
 import HitLocations from 'enums/hit-locations'
+import { trim } from 'utils/strings'
 
-export {
-    Injuries,
-    Injury,
-    injuries,
-}
-
-interface Injury {
+export interface Injury {
     readonly location: string
     readonly roll: string
     readonly name: string
@@ -14,7 +9,7 @@ interface Injury {
     readonly description: string
 }
 
-enum Injuries {
+export enum Injuries {
     // head
     HeadExplosion = 'head-explosion',
     Decapitation = 'decapitation',
@@ -70,13 +65,7 @@ enum Injuries {
     LostBalance = 'lost-balance',
 }
 
-function trim(string: string) {
-    return string.replace(/^ +/mg, '')
-        .replace(/\n/mg, ' ')
-        .trim()
-}
-
-const injuries: { [key: string]: Injury } = {
+export const injuries: { [key: string]: Injury } = {
     /***************************************************************************
      * Head
      **************************************************************************/
@@ -307,7 +296,7 @@ const injuries: { [key: string]: Injury } = {
         name: 'Ruptured Spleen',
         caption: 'A vicious body blow.',
         description: `Skip the next hunt.  Gain 2 bleeding tokens.
-    `},
+    ` },
     [Injuries.BrokenRib]: {
         location: HitLocations.Body,
         roll: '8',

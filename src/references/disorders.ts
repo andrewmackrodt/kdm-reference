@@ -1,18 +1,14 @@
-import { Expansions, Expansion, expansions } from './expansions'
+import { type Expansion, Expansions, expansions } from './expansions'
+import { trim } from 'utils/strings'
 
-export {
-    Disorders,
-    disorders,
-}
-
-interface Disorder {
+export interface Disorder {
     readonly name: string
     readonly expansion?: Expansion
     readonly caption?: string
     readonly description: string
 }
 
-enum Disorders {
+export enum Disorders {
     AbsentSeizures = 'absent-seizures',
     Aichophobia = 'aichophobia',
     Anxiety = 'anxiety',
@@ -45,13 +41,7 @@ enum Disorders {
     WeakSpot = 'weak-spot',
 }
 
-function trim(string: string) {
-    return string.replace(/^ +/mg, '')
-        .replace(/([^\n])\n^([^\n])/mg, '$1 $2')
-        .trim()
-}
-
-const disorders: { [key: string]: Disorder } = {
+export const disorders: { [key: string]: Disorder } = {
     [Disorders.AbsentSeizures]: {
         name: 'Absent Seizures',
         expansion: expansions[Expansions.Gorm],

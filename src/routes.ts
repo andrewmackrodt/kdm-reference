@@ -1,15 +1,18 @@
-import Home from './components/home/component'
-import BrainTraumas from './components/brain-trauma/component'
-import Disorders from './components/disorders/component'
-import NotFound from './components/not-found/component'
-import SevereInjuries from './components/severe-injuries/component'
+import type { App } from 'vue'
+import { createRouter, createWebHashHistory } from 'vue-router'
+import Home from 'views/home.vue'
+import NotFound from 'views/not-found.vue'
 
-const routes = [
-    { path: '/(home)?', component: Home },
-    { path: '/reference/brain-trauma', component: BrainTraumas },
-    { path: '/reference/disorders', component: Disorders },
-    { path: '/reference/severe-injuries', component: SevereInjuries },
-    { path: '*', component: NotFound },
+const hashBase = '#!'
+
+export const routes = [
+    { path: '/', component: Home },
+    { path: '/reference/brain-traumas', component: () => import('views/brain-traumas.vue') },
+    { path: '/reference/disorders', component: () => import('views/disorders.vue') },
+    { path: '/reference/severe-injuries', component: () => import('views/severe-injuries.vue') },
+    { path: '/:params(.*)*', component: NotFound },
 ]
 
-export default routes
+export function useRouter<T extends App>(app: T): T {
+    return app.use(createRouter({ history: createWebHashHistory(hashBase), routes }))
+}

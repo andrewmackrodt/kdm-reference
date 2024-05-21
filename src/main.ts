@@ -1,24 +1,23 @@
-import Vue from 'vue'
-import VueRouter from 'vue-router'
-import store from './store'
-
-Vue.use(VueRouter)
-
-import routes from './routes'
-import App from './components/app/component'
+import App from './app.vue'
+import { createApp } from 'vue'
+import { useRouter } from 'routes'
+import { useStore } from 'store'
 
 // global styles
-import 'bootstrap/scss/bootstrap.scss'
+import 'styles/bootstrap.scss'
 import 'styles/style.scss'
 
 // global scripts
 import 'jquery'
-import 'bootstrap'
+import 'bootstrap/js/src/dropdown'
+import 'bootstrap/js/src/collapse'
 
-new Vue({
+const app = createApp({
     components: { App },
-    el: '#app',
-    router: new VueRouter({routes}),
-    store: store,
-    template: `<App />`,
+    template: '<app />',
 })
+
+useRouter(app)
+useStore(app)
+
+app.mount('#app')

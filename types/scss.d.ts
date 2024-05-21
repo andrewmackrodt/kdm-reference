@@ -1,4 +1,4 @@
 declare module '*.scss' {
-    const style: any
+    const style: { [key: string]: string }
     export default style
 }

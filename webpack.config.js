@@ -1,178 +1,293 @@
-/* eslint-disable @typescript-eslint/indent */
-/* eslint-disable @typescript-eslint/no-var-requires */
-
+const CssMinimizerPlugin = require('css-minimizer-webpack-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
+const ImageminPlugin = require('imagemin-webpack-plugin').default
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const OptimizeCSSAssetsPlugin = require('optimize-css-assets-webpack-plugin')
-const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
-const TerserJSPlugin = require('terser-webpack-plugin')
+const sharpResponsiveLoader = require('responsive-loader/sharp')
+const TerserPlugin = require('terser-webpack-plugin')
+const TsconfigPathsPlugin = require('tsconfig-paths-webpack-plugin')
 const VueLoader = require('vue-loader')
-const env = require('dotenv').config().parsed
-const path = require('path')
 const webpack = require('webpack')
+const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+const path = require('path')
 
 const isDev = (process.env.npm_lifecycle_script || '').indexOf('development') !== -1
 
 module.exports = {
-  entry: path.join(__dirname, '/src/main.ts'),
+  entry: path.join(__dirname, ...'src/main.ts'.split('/')),
   mode: isDev ? 'development' : 'production',
-  devtool: isDev ? 'source-map' : 'none',
+  devtool: 'source-map',
   optimization: {
     minimizer: [
-      new TerserJSPlugin({ cache: true, parallel: true }),
-      new OptimizeCSSAssetsPlugin(),
+      new TerserPlugin({ parallel: true }),
+      new CssMinimizerPlugin(),
     ],
     splitChunks: {
       chunks: 'all',
       maxInitialRequests: Infinity,
       minSize: 0,
       cacheGroups: {
-        vendors: {
-          name: 'vendors',
-          test: /[\\/]node_modules[\\/]/,
-          priority: 10,
+        vue: {
+          name: 'vue',
+          test: /[\\/]node_modules[\\/](@?vue|deepmerge|flatted)/,
+          priority: 50,
         },
         bootstrap: {
           name: 'bootstrap',
-          test: /[\\/]node_modules[\\/](jquery|popper\.js|bootstrap)/,
+          test: /[\\/]node_modules[\\/](jquery|@?popper(?:\.?js)?|bootstrap)|[\\/]styles[\\/]bootstrap\.scss/,
           priority: 20,
         },
-        vue: {
-          name: 'vue',
-          test: /[\\/]node_modules[\\/]vue/,
-          priority: 50,
+        lib: {
+          name: 'lib',
+          test: /[\\/]node_modules[\\/]/,
+          priority: 10,
         },
       },
     },
   },
   output: {
-    path: path.join(__dirname, '/dist'),
-    filename: 'bundles/[name]' + (!isDev ? '.[chunkhash:7]' : '') + '.js',
-    chunkFilename: 'bundles/[name]' + (!isDev ? '.[chunkhash:7]' : '') + '.js',
+    path: path.join(__dirname, 'out'),
+    publicPath: '/',
+    filename: 'scripts/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.js',
+    chunkFilename: 'scripts/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.js',
   },
   module: {
     rules: [
       {
-        test: /\.ts$/,
+        test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
         options: {
-          appendTsSuffixTo: [/\.vue$/],
+          appendTsxSuffixTo: [/\.vue$/],
+          compilerOptions: {
+            // https://github.com/vuejs/vue-loader/issues/1915
+            noImplicitAny: false,
+          },
         },
       },
-      {
-        test: /\.html$/,
-        loader: 'html-loader',
-        exclude: /index\.html$/,
-      },
+      // vue-loader must be specified before html-loader
       {
         test: /\.vue$/,
         loader: 'vue-loader',
       },
       {
-        test: /\.s?css$/,
-        exclude: path.join(__dirname, '/src'),
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../',
-              hmr: isDev,
-            },
-          },
-          'css-loader',
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.s?css$/,
-        include: path.join(__dirname, '/src'),
-        use: [
-          {
-            loader: MiniCssExtractPlugin.loader,
-            options: {
-              publicPath: '../',
-              hmr: isDev,
-            },
-          },
-          {
-            loader: 'css-loader',
-            options: {
-              modules: 'global',
-              localIdentName: 'component-[hash:base62:16]',
-            },
-          },
-          'postcss-loader',
-          'sass-loader',
-        ],
-      },
-      {
-        test: /\.(webp|jpe?g|png|gif|ico|eot|ttf|woff)(\?.*)?$/,
-        loader: 'file-loader',
-        exclude: /src/,
+        test: /\.html$/,
+        loader: 'html-loader',
+        exclude: /index\.html$/,
         options: {
-          name: '[path][name]' + (!isDev ? '.[hash:7]' : '') + '.[ext]',
+          esModule: false,
         },
       },
       {
-        test: /\.(webp|jpe?g|png|gif|ico|eot|ttf|woff)(\?.*)?$/,
-        loader: 'file-loader',
-        include: /src/,
-        options: {
-          name: (file) => {
-            return 'images/' + file.substring(__dirname.length + 1)
-                .replace(/^src\//, '')
-                .replace(/^components\//, '')
-                .replace(/images\//, '')
-                .replace(/[^\/]+\.\w+$/, '[name]' + (!isDev ? '.[hash:7]' : '') + '.[ext]')
+        test: /\.s?css$/,
+        exclude: path.join(__dirname, 'src'),
+        use: [
+          {
+            loader: MiniCssExtractPlugin.loader,
+            options: {
+              publicPath: '../',
+            },
           },
+          'css-loader',
+          {
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: ['autoprefixer'],
+              },
+            },
+          },
+          {
+            loader: 'sass-loader',
+            options: {
+              warnRuleAsWarning: false,
+            },
+          },
+        ],
+      },
+      {
+        test: /\.s?css$/,
+        include: path.join(__dirname, 'src'),
+        oneOf: [
+          {
+            resourceQuery: /module/,
+            use: [
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    localIdentName: '[local]-[hash:7]',
+                  },
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    plugins: ['autoprefixer'],
+                  },
+                },
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  warnRuleAsWarning: false,
+                },
+              },
+            ],
+          },
+          {
+            use: [
+              {
+                loader: MiniCssExtractPlugin.loader,
+                options: {
+                  esModule: false,
+                  publicPath: '../',
+                },
+              },
+              {
+                loader: 'css-loader',
+                options: {
+                  modules: {
+                    localIdentName: '[local]-[hash:7]',
+                    mode: 'global',
+                  },
+                },
+              },
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    plugins: ['autoprefixer'],
+                  },
+                },
+              },
+              {
+                loader: 'sass-loader',
+                options: {
+                  warnRuleAsWarning: false,
+                },
+              },
+            ],
+          },
+        ],
+      },
+      {
+        test: /\.(avif|jpe?g|png|webp)(\?.*)?$/,
+        oneOf: [
+          {
+            loader: 'responsive-loader',
+            resourceQuery: { not: [/raw/] },
+            options: {
+              adapter: (imagePath) => {
+                const adapter = sharpResponsiveLoader(imagePath)
+
+                return {
+                  metadata: () => {
+                    return adapter.metadata()
+                  },
+                  resize: (_ref) => {
+                    if (_ref.width <= 320) _ref.options.quality = 85
+                    else if (_ref.width <= 640) _ref.options.quality = 80
+                    else _ref.options.quality = 75
+
+                    return adapter.resize(_ref)
+                  },
+                }
+              },
+              disable: isDev,
+              name: '[path][name]' + (isDev ? '' : '-[width]px.[hash:7]') + '.[ext]',
+              sizes: [2160, 1080, 640, 320],
+            },
+          },
+          {
+            type: 'asset/resource',
+            resourceQuery: /raw/,
+            generator: {
+              filename: '[path][name]' + (isDev ? '' : '.[hash:7]') + '[ext]',
+            },
+          },
+        ],
+      },
+      {
+        test: /\.(gif|ico|eot|ttf|woff)(\?.*)?$/,
+        type: 'asset/resource',
+        generator: {
+          filename: '[path][name]' + (isDev ? '' : '.[hash:7]') + '[ext]',
         },
       },
       {
         test: /\.svg(\?.*)?$/,
-        loader: 'svg-url-loader?noquotes' +
-          '&name=[path][name]' + (!isDev ? '.[hash:7]' : '') + '.[ext]' +
-          '&limit=20000' +
-          '&stripdeclarations' +
-          '&iesafe',
+        loader: 'svg-url-loader',
+        options: {
+          esModule: false,
+          iesafe: true,
+          limit: 20000,
+          name: '[path][name]' + (isDev ? '' : '.[hash:7]') + '[ext]',
+          noquotes: true,
+          stripdeclarations: true,
+        },
       },
     ],
   },
   devServer: {
+    devMiddleware: { index: true, publicPath: '/' },
+    host: process.env.WEBPACK_HOST || '127.0.0.1',
+    port: process.env.WEBPACK_PORT || 5000,
     hot: true,
-    host: '0.0.0.0',
+    historyApiFallback: true,
+    open: true,
   },
   resolve: {
-    extensions: ['.ts', '.js', '.vue'],
-    modules: [
-      path.join(__dirname, '/src'),
-      __dirname,
-      path.join(__dirname, '/node_modules'),
-    ],
     alias: {
-      'vue$': 'vue/dist/vue.esm.js',
+      vue$: isDev
+          ? 'vue/dist/vue.esm-bundler.js'
+          : 'vue/dist/vue.esm-browser.prod.js',
+      vuex$: isDev
+          ? 'vuex/dist/vuex.esm-bundler.js'
+          : 'vuex/dist/vuex.esm-browser.prod.js',
     },
+    extensions: ['.js', '.ts', '.tsx', '.vue'],
+    modules: [
+      path.join(__dirname, 'src'),
+      path.join(__dirname),
+      path.join(__dirname, 'node_modules'),
+    ],
+    plugins: [
+      new TsconfigPathsPlugin(),
+    ],
   },
   plugins: [
     new webpack.DefinePlugin({
-      'config': JSON.stringify(env),
-    }),
-    new webpack.ProvidePlugin({
-      '$': 'jquery',
+      __VUE_OPTIONS_API__: true,
+      __VUE_PROD_DEVTOOLS__: false,
+      __VUE_PROD_HYDRATION_MISMATCH_DETAILS__: false,
     }),
     new HtmlWebpackPlugin({
       template: 'index.html',
       filename: 'index.html',
-      minify: false,
+      minify: ! isDev,
+    }),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
     }),
     new MiniCssExtractPlugin({
-      filename: 'bundles/[name]' + (!isDev ? '.[chunkhash:7]' : '') + '.css',
-      chunkFilename: 'bundles/[name]' + (!isDev ? '.[chunkhash:7]' : '') + '.css',
-    }),
-    new ScriptExtHtmlWebpackPlugin({
-      defaultAttribute: 'defer',
+      filename: 'styles/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.css',
+      chunkFilename: 'styles/[name]' + ( ! isDev ? '.[chunkhash:7]' : '') + '.css',
     }),
     new VueLoader.VueLoaderPlugin(),
+    ...(isDev ? [] : [
+        new ImageminPlugin({
+          test: /\.(gif|svg|png)$/i,
+          pngquant: {
+            quality: '65-90',
+            speed: 4,
+          },
+        }),
+    ]),
+    ...(process.env.ANALYZE ? [
+        new BundleAnalyzerPlugin({
+          analyzerPort: 50000 + Math.round(Math.random() * 9999),
+        }),
+    ] : []),
   ],
 }

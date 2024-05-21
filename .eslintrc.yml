@@ -1,11 +1,103 @@
-parser: '@typescript-eslint/parser'
-extends:
-  - 'plugin:@typescript-eslint/recommended'
-  - 'standard'
+parser: vue-eslint-parser
 parserOptions:
-  ecmaVersion: 2018
-  project: ./tsconfig.json
+  parser: '@typescript-eslint/parser'
+  project: tsconfig.json
+  ecmaVersion: 2020
+  emitDecoratorMetadata: true
+  extraFileExtensions:
+    - '.vue'
+ignorePatterns:
+  - webpack.config.js
+plugins:
+  - import
+  - vue
+  - '@typescript-eslint'
+extends:
+  - plugin:@typescript-eslint/recommended
+  - plugin:import/errors
+  - plugin:import/typescript
+  - plugin:import/warnings
+  - plugin:vue/vue3-recommended
+settings:
+  import/resolver:
+    typescript: {}
 rules:
+  '@typescript-eslint/ban-types':
+    - off
+  '@typescript-eslint/consistent-type-imports':
+    - error
+    - fixStyle: inline-type-imports
+  '@typescript-eslint/explicit-module-boundary-types':
+    - off
+  '@typescript-eslint/member-delimiter-style':
+    - error
+    - multiline:
+        delimiter: 'none'
+  '@typescript-eslint/no-explicit-any':
+    - warn
+  '@typescript-eslint/no-unnecessary-type-arguments':
+    - warn
+  '@typescript-eslint/no-unused-vars':
+    - warn
+  '@typescript-eslint/semi':
+    - error
+    - never
   comma-dangle:
     - error
     - always-multiline
+  eol-last:
+    - error
+  import/newline-after-import:
+    - error
+    - count: 1
+  import/no-named-as-default:
+    - off
+  import/no-named-as-default-member:
+    - off
+  import/order:
+    - error
+    - alphabetize:
+        order: asc
+        caseInsensitive: false
+      groups:
+        - [parent, sibling, index]
+        - external
+        - builtin
+      newlines-between: never
+  no-trailing-spaces:
+    - error
+  object-curly-spacing:
+    - error
+    - always
+  prefer-const:
+    - error
+    - destructuring: 'all'
+  quote-props:
+    - error
+    - as-needed
+  quotes:
+    - error
+    - single
+    - avoidEscape: true
+  space-infix-ops:
+    - error
+  space-unary-ops:
+    - error
+    - overrides:
+        '!': true
+  vue/component-name-in-template-casing:
+    - error
+    - kebab-case
+  vue/html-indent:
+    - error
+    - 2
+  vue/max-attributes-per-line:
+    - off
+  vue/no-lone-template:
+    - off
+  vue/no-multiple-template-root:
+    - off
+  vue/no-v-html:
+    - off
+  vue/require-v-for-key:
+    - off

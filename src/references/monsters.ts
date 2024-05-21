@@ -1,16 +1,11 @@
-import { Packages, Package, packages } from './packages'
+import { type Package, Packages, packages } from './packages'
 
-export {
-    Monsters,
-    monsters,
-}
-
-interface Monster {
+export interface Monster {
     readonly name: string
     readonly package: Package
 }
 
-enum Monsters {
+export enum Monsters {
     Butcher = 'butcher',
     DragonKing = 'dragon-king',
     DungBeetleKnight = 'dung-beetle-knight',
@@ -33,7 +28,7 @@ enum Monsters {
     WhiteLion = 'white-lion',
 }
 
-const monsters: { [key: string]: Monster } = {
+export const monsters: { [key: string]: Monster } = {
     [Monsters.Butcher]: {
         name: 'Butcher',
         package: packages[Packages.Core_1_0],

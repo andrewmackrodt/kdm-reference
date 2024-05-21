@@ -1,22 +1,40 @@
 {
   "compilerOptions": {
-    "baseUrl": "./src",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./",
     "emitDecoratorMetadata": true,
+    "esModuleInterop": true,
     "experimentalDecorators": true,
     "importHelpers": true,
+    "jsx": "react",
+    "jsxFactory": "h",
     "lib": [
-      "dom",
-      "es5",
-      "es2015.promise"
+      "DOM",
+      "DOM.Iterable",
+      "ES2020"
     ],
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESNext",
+    "moduleResolution": "Node",
+    "paths": {
+      // sources
+      "*": ["./src/*"],
+      "components/*": ["./src/components/*"],
+      "enums/*": ["./src/enums/*"],
+      "references/*": ["./src/references/*"],
+      "views/*": ["./src/views/*"],
+      // resources
+      "fonts/*": ["./fonts/*"],
+      "images/*": ["./images/*"],
+      "styles/*": ["./styles/*"]
+    },
+    "sourceMap": true,
     "strict": true,
-    "target": "es5"
+    "target": "ES6"
   },
   "include": [
-    "./typings/**/*",
-    "./src/**/*",
-    "./tests/**/*"
+    "./types/**/*.d.ts",
+    "./src/**/*.ts",
+    "./src/**/*.vue"
   ]
 }

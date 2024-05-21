@@ -1,21 +1,15 @@
-import { Expansions, Expansion, expansions } from './expansions'
+import { type Expansion, Expansions, expansions } from './expansions'
 
-export {
-    Sets,
-    Set,
-    sets,
-}
-
-interface Set {
+export interface Set {
     readonly name: string
     readonly expansions: Expansion[]
 }
 
-enum Sets {
+export enum Sets {
     ExpansionsOfDeath = 'expansions-of-death',
 }
 
-const sets: { [key: string]: Set } = {
+export const sets: { [key: string]: Set } = {
     [Sets.ExpansionsOfDeath]: {
         name: 'Expansions of Death',
         expansions: [

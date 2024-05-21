@@ -1,21 +1,19 @@
-import Vue from 'vue'
+import type { App } from 'vue'
 import Vuex from 'vuex'
 import VuexPersistence from 'vuex-persist'
 
-Vue.use(Vuex)
+export interface RecordValueState {
+    [key: string]: Record<string, unknown>
+}
 
 const vuexLocal = new VuexPersistence({
-    storage: window.localStorage
+    storage: window.localStorage,
 })
 
-const store = new Vuex.Store({
-    state: {
-        global: {},
-    },
+export const store = new Vuex.Store({
+    state: {} as RecordValueState,
     mutations: {
-        update(state: any, payload: object) {
-            state = state.global
-
+        update(state: RecordValueState, payload: Record<string, unknown>) {
             for (const [k, v] of Object.entries(payload)) {
                 state[k] = Object.assign(state[k] || {}, v)
             }
@@ -26,4 +24,6 @@ const store = new Vuex.Store({
     ],
 })
 
-export default store
+export function useStore<T extends App>(app: T): T {
+    return app.use(store)
+}

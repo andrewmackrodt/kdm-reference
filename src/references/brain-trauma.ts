@@ -1,17 +1,13 @@
-export {
-    BrainTraumas,
-    BrainTrauma,
-    brainTraumas,
-}
+import { trim } from 'utils/strings'
 
-interface BrainTrauma {
+export interface BrainTrauma {
     readonly roll: string
     readonly name: string
     readonly caption?: string
     readonly description: string
 }
 
-enum BrainTraumas {
+export enum BrainTraumas {
     MortalTerror = 'mortal-terror',
     MemoryLoss = 'memory-loss',
     Flee = 'flee',
@@ -24,13 +20,7 @@ enum BrainTraumas {
     Impossible = 'impossible',
 }
 
-function trim(string: string) {
-    return string.replace(/^ +/mg, '')
-        .replace(/\n/mg, ' ')
-        .trim()
-}
-
-const brainTraumas: { [key: string]: BrainTrauma } = {
+export const brainTraumas: { [key: string]: BrainTrauma } = {
     [BrainTraumas.MortalTerror]: {
         roll: '1-2',
         name: 'Mortal Terror',
